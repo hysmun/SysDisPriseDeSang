@@ -19,6 +19,32 @@ public class Medecin {
 
     private String Login;
 
+    public Medecin(int Id, String Nom, String Prenom, String Login) {
+        this.Id = Id;
+        this.Nom = Nom;
+        this.Prenom = Prenom;
+        this.Login = Login;
+    }
+
+    public Medecin() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Medecin other = (Medecin) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        return true;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="getter et setter">
     /**
      * Get the value of Login
      *
@@ -27,7 +53,7 @@ public class Medecin {
     public String getLogin() {
         return Login;
     }
-
+    
     /**
      * Set the value of Login
      *
@@ -36,7 +62,7 @@ public class Medecin {
     public void setLogin(String Login) {
         this.Login = Login;
     }
-
+    
     /**
      * Get the value of Prenom
      *
@@ -45,7 +71,7 @@ public class Medecin {
     public String getPrenom() {
         return Prenom;
     }
-
+    
     /**
      * Set the value of Prenom
      *
@@ -54,7 +80,7 @@ public class Medecin {
     public void setPrenom(String Prenom) {
         this.Prenom = Prenom;
     }
-
+    
     /**
      * Get the value of Nom
      *
@@ -63,7 +89,7 @@ public class Medecin {
     public String getNom() {
         return Nom;
     }
-
+    
     /**
      * Set the value of Nom
      *
@@ -72,7 +98,7 @@ public class Medecin {
     public void setNom(String Nom) {
         this.Nom = Nom;
     }
-
+    
     /**
      * Get the value of id
      *
@@ -81,7 +107,7 @@ public class Medecin {
     public int getId() {
         return Id;
     }
-
+    
     /**
      * Set the value of id
      *
@@ -90,4 +116,5 @@ public class Medecin {
     public void setId(int id) {
         this.Id = id;
     }
+//</editor-fold>
 }

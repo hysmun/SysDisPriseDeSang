@@ -23,6 +23,33 @@ public class Demande {
 
     private boolean Urgent;
 
+    public Demande() {
+    }
+
+    public Demande(int Id, int RefPatient, int RefMedecin, Date DateHeureDemande, boolean Urgent) {
+        this.Id = Id;
+        this.RefPatient = RefPatient;
+        this.RefMedecin = RefMedecin;
+        this.DateHeureDemande = DateHeureDemande;
+        this.Urgent = Urgent;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Demande other = (Demande) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        return true;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="getter et setter">
     /**
      * Get the value of Urgent
      *
@@ -112,4 +139,5 @@ public class Demande {
     public void setId(int id) {
         this.Id = id;
     }
+    //</editor-fold>
 }

@@ -17,6 +17,31 @@ public class Analyse {
     
     private String Valeur;
 
+    public Analyse(int Id, String Item, String Valeur) {
+        this.Id = Id;
+        this.Item = Item;
+        this.Valeur = Valeur;
+    }
+
+    public Analyse() {
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Analyse other = (Analyse) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        return true;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="getter et setter">
     /**
      * Get the value of Item
      *
@@ -70,4 +95,5 @@ public class Analyse {
     public void setId(int id) {
         this.Id = id;
     }
+    //</editor-fold>
 }

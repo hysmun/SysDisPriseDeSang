@@ -19,6 +19,32 @@ public class Patient {
 
     private String Login;
 
+    public Patient() {
+    }
+
+    public Patient(int Id, String Nom, String Prenom, String Login) {
+        this.Id = Id;
+        this.Nom = Nom;
+        this.Prenom = Prenom;
+        this.Login = Login;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Patient other = (Patient) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        return true;
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="getter et setter">
     /**
      * Get the value of Login
      *
@@ -90,5 +116,5 @@ public class Patient {
     public void setId(int id) {
         this.Id = id;
     }
-
+    //</editor-fold>
 }

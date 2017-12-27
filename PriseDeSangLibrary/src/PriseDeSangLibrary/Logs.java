@@ -15,6 +15,30 @@ public class Logs {
     
     private String Infos;
 
+    public Logs() {
+    }
+
+    public Logs(int Id, String Infos) {
+        this.Id = Id;
+        this.Infos = Infos;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Logs other = (Logs) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        return true;
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="getter et setter">
     /**
      * Get the value of Infos
      *
@@ -50,4 +74,5 @@ public class Logs {
     public void setId(int id) {
         this.Id = id;
     }
+    //</editor-fold>
 }

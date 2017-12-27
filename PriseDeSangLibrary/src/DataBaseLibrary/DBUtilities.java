@@ -5,11 +5,11 @@
  */
 package DataBaseLibrary;
 
-//import oracle.jdbc.driver.OracleDriver;
 import java.sql.*;
-import static java.sql.ResultSet.CONCUR_READ_ONLY;
-import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
-
+import static java.sql.ResultSet.*;
+import PriseDeSangLibrary.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author 'Toine
@@ -53,6 +53,24 @@ public class DBUtilities {
     public boolean execute(String pupdate) throws SQLException
     {
         return instruc.execute(pupdate);
+    }
+    
+    public Medecin[] getMedecin(){
+        Medecin[] listMed = new Medecin[0];
+        try {
+            ResultSet rs = query("SELECT count(*) FROM medecin");
+            rs.next();
+            int number = rs.getInt(1);
+            
+            listMed = new Medecin[number];
+            rs = query("SELECT * FROM medecin");
+            for(int i=0; i<number; i++){
+                listMed[i] = new Medecin(){};
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listMed;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter">
