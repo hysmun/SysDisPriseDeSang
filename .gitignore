@@ -20,3 +20,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/ApplicationMedecin/nbproject/private/
+/ApplicationGui/nbproject/private/
+/EjbPriseDeSang/nbproject/private/
+/WSResultat/nbproject/private/
+/EAPriseDeSang/nbproject/private/
+/EAPriseDeSang/EAPriseDeSang-war/nbproject/private/
+/EAPriseDeSang/EAPriseDeSang-ejb/nbproject/private/
