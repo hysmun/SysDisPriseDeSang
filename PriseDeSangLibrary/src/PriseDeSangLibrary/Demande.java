@@ -33,6 +33,11 @@ public class Demande {
         this.DateHeureDemande = DateHeureDemande;
         this.Urgent = Urgent;
     }
+
+    @Override
+    public String toString() {
+        return "Demande{" + "Id=" + Id + ", RefPatient=" + RefPatient + ", RefMedecin=" + RefMedecin + ", DateHeureDemande=" + DateHeureDemande + ", Urgent=" + Urgent + '}';
+    }
     
     @Override
     public boolean equals(Object obj) {

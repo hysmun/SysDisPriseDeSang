@@ -27,6 +27,11 @@ public class Analyse {
     }
 
     @Override
+    public String toString() {
+        return "Analyse{" + "Id=" + Id + ", Item=" + Item + ", Valeur=" + Valeur + '}';
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

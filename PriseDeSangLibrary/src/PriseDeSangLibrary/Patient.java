@@ -30,6 +30,11 @@ public class Patient {
     }
     
     @Override
+    public String toString() {
+        return "Medecin{" + "Id=" + Id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", Login=" + Login + '}';
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
