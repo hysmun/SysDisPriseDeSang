@@ -29,3 +29,5 @@ hs_err_pid*
 /EAPriseDeSang/EAPriseDeSang-ejb/nbproject/private/
 /PriseDeSangGui/nbproject/private/
 /PriseDeSangLibrary/nbproject/private/
+/PriseDeSangLibrary/build/
+/PriseDeSangLibrary/dist/
