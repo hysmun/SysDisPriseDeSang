@@ -8,6 +8,13 @@ package DataBaseLibrary;
 import java.sql.*;
 import static java.sql.ResultSet.*;
 import PriseDeSangLibrary.*;
+import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -30,6 +37,7 @@ public class DBUtilities {
         this.typeConnection = SQL;
         
         nameConnection = "org.gjt.mm.mysql.Driver";
+        //nameConnection = "com.mysql.jdbc.Driver";
         
         Class.forName(nameConnection);
         login = plogin;
@@ -55,24 +63,50 @@ public class DBUtilities {
         return instruc.execute(pupdate);
     }
     
-    public Medecin[] getMedecin(){
-        Medecin[] listMed = new Medecin[0];
-        try {
-            ResultSet rs = query("SELECT count(*) FROM medecin");
-            rs.next();
-            int number = rs.getInt(1);
+    public <T> List getList(Class c){
+        List<T> list = new LinkedList<>();
             
-            listMed = new Medecin[number];
-            rs = query("SELECT * FROM medecin");
+        try {
+            int number = getNbr(c);
+            int j=1;
+            ResultSet rs;
+            String name = c.getSimpleName().toLowerCase();
+            rs = query("SELECT * FROM "+name);
             rs.next();
             for(int i=0; i<number; i++){
-                listMed[i] = new Medecin(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                T tmp = (T) c.newInstance();
+                j=1;
+                for(Field f : tmp.getClass().getFields()){
+                    //System.out.println("t"+f.get(tmp));
+                    f.set(tmp, rs.getObject(j));
+                    j++;
+                }
                 rs.next();
+                list.add(tmp);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBUtilities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(DBUtilities.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(DBUtilities.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listMed;
+        return list;
+    }
+    
+    public <T> int getNbr(Class c){
+        int nbr=0;
+        String name = c.getSimpleName().toLowerCase();
+        System.out.println(name);
+        ResultSet rs;
+        try {
+            rs = query("SELECT count(*) FROM "+name);
+            rs.next();
+            nbr = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return nbr;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Getter">

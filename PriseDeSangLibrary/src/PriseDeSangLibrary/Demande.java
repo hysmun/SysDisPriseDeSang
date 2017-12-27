@@ -13,15 +13,15 @@ import java.util.Date;
  */
 public class Demande {
     
-    private int Id;
+    public int Id;
     
-    private int RefPatient;
+    public int RefPatient;
 
-    private int RefMedecin;
+    public int RefMedecin;
 
-    private Date DateHeureDemande;
+    public Date DateHeureDemande;
 
-    private boolean Urgent;
+    public boolean Urgent;
 
     public Demande() {
     }
@@ -36,7 +36,7 @@ public class Demande {
 
     @Override
     public String toString() {
-        return "Demande{" + "Id=" + Id + ", RefPatient=" + RefPatient + ", RefMedecin=" + RefMedecin + ", DateHeureDemande=" + DateHeureDemande + ", Urgent=" + Urgent + '}';
+        return "" + Id + ", " + RefPatient + ", " + RefMedecin + ", " + DateHeureDemande + ", " + Urgent;
     }
     
     @Override

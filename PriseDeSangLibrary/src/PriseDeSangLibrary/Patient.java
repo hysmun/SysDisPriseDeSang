@@ -11,13 +11,13 @@ package PriseDeSangLibrary;
  */
 public class Patient {
     
-    private int Id;
+    public int Id;
 
-    private String Nom;
+    public String Nom;
 
-    private String Prenom;
+    public String Prenom;
 
-    private String Login;
+    public String Login;
 
     public Patient() {
     }
@@ -31,7 +31,7 @@ public class Patient {
     
     @Override
     public String toString() {
-        return "Medecin{" + "Id=" + Id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", Login=" + Login + '}';
+        return "" + Id + ", " + Nom + ", " + Prenom + ", " + Login;
     }
     
     @Override

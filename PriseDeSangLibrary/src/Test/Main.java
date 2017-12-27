@@ -5,7 +5,8 @@
  */
 package Test;
 import DataBaseLibrary.*;
-import PriseDeSangLibrary.*;
+import PriseDeSangLibrary.Medecin;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -17,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             DBUtilities dbuti = new DBUtilities("root", "toor", "127.0.0.1", 5500);
-            Medecin[] listMed = dbuti.getMedecin();
+            List<Medecin> listMed = dbuti.getList(Medecin.class);
             
             for(Medecin m : listMed){
                 System.out.println(m.toString());

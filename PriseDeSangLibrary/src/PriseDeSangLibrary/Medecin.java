@@ -11,14 +11,17 @@ package PriseDeSangLibrary;
  */
 public class Medecin {
     
-    private int Id;
+    public int Id;
 
-    private String Nom;
+    public String Nom;
 
-    private String Prenom;
+    public String Prenom;
 
-    private String Login;
+    public String Login;
 
+    public Medecin() {
+    }
+    
     public Medecin(int Id, String Nom, String Prenom, String Login) {
         this.Id = Id;
         this.Nom = Nom;
@@ -26,12 +29,9 @@ public class Medecin {
         this.Login = Login;
     }
 
-    public Medecin() {
-    }
-
     @Override
     public String toString() {
-        return "Medecin{" + "Id=" + Id + ", Nom=" + Nom + ", Prenom=" + Prenom + ", Login=" + Login + '}';
+        return "" + Id + ", " + Nom + ", " + Prenom + ", " + Login;
     }
 
     @Override

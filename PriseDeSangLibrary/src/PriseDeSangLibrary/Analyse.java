@@ -11,11 +11,11 @@ package PriseDeSangLibrary;
  */
 public class Analyse {
     
-    private int Id;
+    public int Id;
     
-    private String Item;
+    public String Item;
     
-    private String Valeur;
+    public String Valeur;
 
     public Analyse(int Id, String Item, String Valeur) {
         this.Id = Id;
@@ -28,7 +28,7 @@ public class Analyse {
 
     @Override
     public String toString() {
-        return "Analyse{" + "Id=" + Id + ", Item=" + Item + ", Valeur=" + Valeur + '}';
+        return "" + Id + ", " + Item + ", " + Valeur;
     }
 
     @Override
