@@ -5,13 +5,14 @@
  */
 package PriseDeSangLibrary;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author 'Toine
  */
-public class Demande {
+public class Demande implements Serializable{
     
     public int Id;
     

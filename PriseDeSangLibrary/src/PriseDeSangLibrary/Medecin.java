@@ -5,11 +5,13 @@
  */
 package PriseDeSangLibrary;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 'Toine
  */
-public class Medecin {
+public class Medecin implements Serializable{
     
     public int Id;
 

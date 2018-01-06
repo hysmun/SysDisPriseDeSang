@@ -5,11 +5,13 @@
  */
 package PriseDeSangLibrary;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 'Toine
  */
-public class Logs {
+public class Logs implements Serializable{
     
     private int Id;
     
