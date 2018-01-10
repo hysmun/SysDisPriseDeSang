@@ -23,7 +23,7 @@ public class DBUtilities {
     public EntityManagerFactory emf;
     public EntityManager em;
     
-    public DBUtilities() throws ClassNotFoundException, Exception {
+    public DBUtilities() {
         emf = Persistence.createEntityManagerFactory("PriseDeSangLibraryPU");
         em = emf.createEntityManager();
         em.getTransaction().begin();

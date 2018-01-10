@@ -32,7 +32,7 @@ public class Main {
                 System.out.println("medecin : " + m);
             }*/
             
-            DBUtilities uti = new DBUtilities();uti.getList(Patient.class);
+            DBUtilities uti = new DBUtilities();
             lp = uti.getList(Patient.class);
             for(Patient p : lp){
                 System.out.println(p.toString());
