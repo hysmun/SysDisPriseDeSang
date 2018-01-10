@@ -15,6 +15,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -25,6 +26,12 @@ import javax.jms.Topic;
  */
 public class Main {
 
+    @Resource(mappedName = "jms/QueuePDS")
+    private static Queue queuePDS;
+
+    @Resource(mappedName = "jms/QueuePDSFactory")
+    private static ConnectionFactory queuePDSFactory;
+
     @Resource(mappedName = "jms/TopicPDS")
     private static Topic topicPDS;
 
@@ -33,19 +40,24 @@ public class Main {
 
     
     
-    private static Connection con = null;
+    private static Connection conTop = null;
     
-    private static Session ses = null;
+    private static Connection conQueue = null;
+    
+    private static Session sesTop = null;
+    
+    private static Session sesQue = null;
     
     public static void main(String[] args) {
         
         try {
-            con = topicPDSFactory.createConnection();
-            ses = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            conTop = topicPDSFactory.createConnection();
+            sesTop = conTop.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            conQueue = queuePDSFactory.createConnection();
+            sesQue = conQueue.createSession(false, Session.AUTO_ACKNOWLEDGE);
         } catch (JMSException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-        
+    }        
 }

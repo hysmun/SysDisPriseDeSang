@@ -18,6 +18,7 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -30,21 +31,21 @@ import prisedesangclient.Main;
  * @author 'Toine
  */
 public class ApplicationLaborantin extends javax.swing.JFrame implements MessageListener {
-
-    @Resource(mappedName = "jms/TopicPDS")
-    private static Topic topicPDS;
-
-    @Resource(mappedName = "jms/TopicPDSFactory")
-    private static ConnectionFactory topicPDSFactory;
-
+  
     @EJB
     private static EjbAnalysesRemote ejbAnalyse;
     
     private Topic top = null;
     
-    private Connection con = null;
+    private Queue queue = null;
     
-    private Session ses = null;
+    private Connection conTop = null;
+    
+    private Connection conQueue = null;
+    
+    private Session sesTop = null;
+    
+    private Session sesQue = null;
         
     private MessageConsumer cons = null;
     
@@ -53,8 +54,21 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
              
     }
     
-    public ApplicationLaborantin(Connection con, Topic top, Session ses) {
+    public ApplicationLaborantin(Topic top,Queue que, Session sesT, Session sesQ, Connection conT, Connection conQ) {
+        try {        
             initComponents();
+            this.conTop = conT;
+            this.top = top;
+            this.sesTop = sesT;
+            this.conQueue = conQ;
+            this.sesQue = sesQ;
+            this.queue = que;
+            
+            cons = sesQ.createConsumer(que);
+            cons.setMessageListener(this);
+        } catch (JMSException ex) {
+            Logger.getLogger(ApplicationLaborantin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
