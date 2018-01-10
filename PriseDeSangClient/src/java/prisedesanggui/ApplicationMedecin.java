@@ -76,6 +76,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void patientManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementButtonActionPerformed
+        System.out.println("entree applic medecin");
         GestionPatient gestion = new GestionPatient();
         gestion.setVisible(true);
     }//GEN-LAST:event_patientManagementButtonActionPerformed
