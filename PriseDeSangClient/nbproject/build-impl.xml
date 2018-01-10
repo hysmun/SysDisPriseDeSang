@@ -770,9 +770,13 @@ exists or setup the property manually. For example like this:
         </fail>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <ant antfile="${project.EjbPriseDeSang}/build.xml" inheritall="false" target="dist"/>
         <ant antfile="${project.PriseDeSangLibrary}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <ant antfile="${project.EjbPriseDeSang}/build.xml" inheritall="false" target="dist-ear">
+            <property location="${build.dir}" name="dist.ear.dir"/>
+        </ant>
         <ant antfile="${project.PriseDeSangLibrary}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, -check-main-class, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
@@ -785,15 +789,18 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
         <basename file="${reference.PriseDeSangLibrary.jar}" property="manifest.reference.PriseDeSangLibrary.jar"/>
+        <basename file="${reference.EjbPriseDeSang.dist}" property="manifest.reference.EjbPriseDeSang.dist"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.PriseDeSangLibrary.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.reference.EjbPriseDeSang.dist}"/>
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.PriseDeSangLibrary.jar}" manifestproperty="manifest.reference.PriseDeSangLibrary.jar" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${reference.EjbPriseDeSang.dist}" manifestproperty="manifest.reference.EjbPriseDeSang.dist" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.PriseDeSangLibrary.jar} lib/${manifest.reference.PriseDeSangLibrary.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.PriseDeSangLibrary.jar} lib/${manifest.reference.PriseDeSangLibrary.jar} ${manifest.reference.EjbPriseDeSang.dist} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -1297,6 +1304,7 @@ exists or setup the property manually. For example like this:
                 ===============
             -->
     <target depends="init" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.EjbPriseDeSang}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.PriseDeSangLibrary}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="-do-clean">
