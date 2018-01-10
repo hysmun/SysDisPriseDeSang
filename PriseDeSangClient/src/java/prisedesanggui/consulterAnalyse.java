@@ -71,7 +71,7 @@ public class consulterAnalyse extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(nonprioListe);
 
-        nonprioLabel.setText("Priorité normale :");
+        nonprioLabel.setText("Priorite normale :");
 
         refreshButton.setText("Rafraichir");
         refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
