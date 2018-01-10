@@ -7,6 +7,7 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Patient;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.swing.ListModel;
@@ -18,7 +19,7 @@ import javax.swing.event.ListDataListener;
  */
 public class GestionPatient extends javax.swing.JFrame {
 
-    @EJB
+    @EJB(beanInterface = EjbPatientRemote.class)
     private static EjbPatientRemote ejbPatientRemote;
     
     public List<Patient> lp;
@@ -28,6 +29,7 @@ public class GestionPatient extends javax.swing.JFrame {
      */
     public GestionPatient() {
         initComponents();
+        this.setLocationRelativeTo(null);
         lp = ejbPatientRemote.getPatientList();
         patientJList.setModel(new MyListModel(lp));
     }

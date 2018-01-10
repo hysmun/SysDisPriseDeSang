@@ -19,7 +19,7 @@ import javax.ejb.Stateless;
 public class EjbPatient implements EjbPatientRemote {
 
     @Override
-    public List getPatientList() {
+    public List<Patient> getPatientList() {
         DBUtilities uti = new DBUtilities();
         
         List<Patient> lp;
