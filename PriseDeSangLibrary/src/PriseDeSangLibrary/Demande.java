@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,6 +42,7 @@ public class Demande implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "iddemande")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer iddemande;
     @Basic(optional = false)
     @NotNull
@@ -64,6 +67,11 @@ public class Demande implements Serializable {
         this.iddemande = iddemande;
     }
 
+    public Demande(Date dateHeureDemande, short urgent) {
+        this.dateHeureDemande = dateHeureDemande;
+        this.urgent = urgent;
+    }
+    
     public Demande(Integer iddemande, Date dateHeureDemande, short urgent) {
         this.iddemande = iddemande;
         this.dateHeureDemande = dateHeureDemande;

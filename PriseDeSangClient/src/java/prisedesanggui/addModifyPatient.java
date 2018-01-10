@@ -5,16 +5,33 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalysesRemote;
+import EjbPriseDeSang.EjbPatientRemote;
+import PriseDeSangLibrary.Patient;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 /**
  *
  * @author Morghen
  */
 public class addModifyPatient extends javax.swing.JDialog {
     
-    public static int AJOUT = 1;
-    public static int MODIF = 2;
+    public static int AJOUT = -1;
+    
+    @EJB
+    public EjbPatientRemote ejbPatient;
     
     public addModifyPatient() {
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -28,14 +45,16 @@ public class addModifyPatient extends javax.swing.JDialog {
     public addModifyPatient(java.awt.Frame parent,boolean modal,int type) {
         super(parent, modal);
         initComponents();
+        Patient p=null;
         if(type == 1) // Ajout
         {
-            
+            p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
         }
         else // Modification
         {
-
+            p = new Patient(type,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
         }
+        ejbPatient.addPatient(p);
     }
 
     /**

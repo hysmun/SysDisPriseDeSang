@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -21,6 +22,7 @@ import javax.naming.NamingException;
  */
 public class consulterAnalyse extends javax.swing.JFrame {
 
+    @EJB
     public EjbAnalysesRemote ejbAnalysesRemote;
     
     public consulterAnalyse() {
