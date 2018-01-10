@@ -10,13 +10,14 @@ import PriseDeSangLibrary.Patient;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 
 /**
  *
  * @author 'Toine
  */
-@Stateless
+@Singleton
 public class EjbPatient implements EjbPatientRemote {
 
     @Override

@@ -17,9 +17,13 @@ public class testClient {
 
     @EJB
     private static EjbPatientRemote ejbPatientRemote;
+    
+    @EJB
+    private static EjbLoginRemoteRemote ejbLogin;
   
     public static void main(String[] args) {
         System.out.println("DEBUT");
+        ejbLogin.doIt("coucou");
         ejbPatientRemote.getPatientList();
         
         System.out.println("FIN");
