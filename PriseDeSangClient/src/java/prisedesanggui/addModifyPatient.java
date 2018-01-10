@@ -21,6 +21,7 @@ import javax.naming.NamingException;
 public class addModifyPatient extends javax.swing.JDialog {
     
     public static int AJOUT = -1;
+    public int type;
     
     @EJB
     public EjbPatientRemote ejbPatient;
@@ -42,19 +43,23 @@ public class addModifyPatient extends javax.swing.JDialog {
         initComponents();
     }
     
-    public addModifyPatient(java.awt.Frame parent,boolean modal,int type) {
+    public addModifyPatient(java.awt.Frame parent,boolean modal,int ptype) {
         super(parent, modal);
         initComponents();
-        Patient p=null;
-        if(type == 1) // Ajout
+        type = ptype;
+        if(ptype == 1) // Ajout
         {
-            p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            infoLabel.setText("Nouveau utilisateur ");
         }
         else // Modification
         {
-            p = new Patient(type,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            Patient p;
+            p=ejbPatient.getPatient(ptype);
+            nameTextField.setText(p.getNom());
+            surnameTextField.setText(p.getPrenom());
+            loginTextField.setText(p.getLogin());
+            infoLabel.setText("Modification du patient : "+p.getIdPatient());
         }
-        ejbPatient.addPatient(p);
     }
 
     /**
@@ -74,6 +79,7 @@ public class addModifyPatient extends javax.swing.JDialog {
         nameLabel = new javax.swing.JLabel();
         surnameLabel = new javax.swing.JLabel();
         loginLabel = new javax.swing.JLabel();
+        infoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajout/Modification de patient");
@@ -98,6 +104,8 @@ public class addModifyPatient extends javax.swing.JDialog {
 
         loginLabel.setText("Login :");
 
+        infoLabel.setText("info");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,11 +129,17 @@ public class addModifyPatient extends javax.swing.JDialog {
                             .addComponent(surnameTextField)
                             .addComponent(nameTextField))))
                 .addGap(134, 134, 134))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(infoLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addContainerGap()
+                .addComponent(infoLabel)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nameLabel))
@@ -149,6 +163,16 @@ public class addModifyPatient extends javax.swing.JDialog {
 
     private void OKButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKButtonMouseClicked
         // TODO add your handling code here:
+        Patient p;
+        if(type == 1) // Ajout
+        {
+            p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+        }
+        else // Modification
+        {
+            p = new Patient(type,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+        }
+        ejbPatient.addPatient(p);
     }//GEN-LAST:event_OKButtonMouseClicked
 
     private void CancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonMouseClicked
@@ -200,6 +224,7 @@ public class addModifyPatient extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelButton;
     private javax.swing.JButton OKButton;
+    private javax.swing.JLabel infoLabel;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JTextField loginTextField;
     private javax.swing.JLabel nameLabel;

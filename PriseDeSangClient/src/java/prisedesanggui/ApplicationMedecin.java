@@ -33,9 +33,9 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         resultsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Application SystDist - Médecin");
+        setTitle("Application SystDist - M�decin");
 
-        patientManagementButton.setText("Gérer les patients");
+        patientManagementButton.setText("Gerer les patients");
         patientManagementButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patientManagementButtonActionPerformed(evt);
@@ -49,7 +49,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
             }
         });
 
-        resultsButton.setText("Consulter les résultats");
+        resultsButton.setText("Consulter les resultats");
         resultsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultsButtonActionPerformed(evt);
