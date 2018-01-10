@@ -5,7 +5,7 @@
  */
 package EjbPriseDeSang;
 
-import static EjbPriseDeSang.EjbPatient.uti;
+import DataBaseLibrary.DBUtilities;
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import java.util.List;
@@ -17,7 +17,9 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
-
+    
+    public static DBUtilities uti = new DBUtilities();
+    
     @Override
     public List getDemandeList() {
         List lp;
