@@ -26,6 +26,7 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
     @Override
     public void doIt(String p) {
                 
+        
         if(ctx.isCallerInRole("medecin")) {
             Principal medecin = ctx.getCallerPrincipal();
             //Connexion BDD et test si existant

@@ -43,8 +43,18 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         });
 
         analysePrescribeButton.setText("Prescrire des analyses");
+        analysePrescribeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysePrescribeButtonActionPerformed(evt);
+            }
+        });
 
         resultsButton.setText("Consulter les résultats");
+        resultsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resultsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,9 +87,16 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void patientManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementButtonActionPerformed
-        System.out.println("entree applic medecin");
         new GestionPatient().setVisible(true);
     }//GEN-LAST:event_patientManagementButtonActionPerformed
+
+    private void analysePrescribeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysePrescribeButtonActionPerformed
+        new analyse().setVisible(true);
+    }//GEN-LAST:event_analysePrescribeButtonActionPerformed
+
+    private void resultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsButtonActionPerformed
+        new consulterAnalyse().setVisible(true);
+    }//GEN-LAST:event_resultsButtonActionPerformed
 
     /**
      * @param args the command line arguments
