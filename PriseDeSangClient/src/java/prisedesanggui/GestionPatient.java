@@ -31,7 +31,7 @@ public class GestionPatient extends javax.swing.JFrame {
     public GestionPatient() {
         initComponents();
         this.setLocationRelativeTo(null);
-        lp = new ArrayList<Patient>(ejbPatientRemote.getPatientList());
+        lp = (ejbPatientRemote.getPatientList());
         patientJList.setModel(new MyListModel(lp));
     }
 
