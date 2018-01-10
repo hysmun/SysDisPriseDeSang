@@ -28,14 +28,17 @@ public class EjbLogin implements EjbLoginLocal {
         StringBuilder sb = new StringBuilder();
         
         if(ctx.isCallerInRole("medecin")) {
-            Principal callerPrincipal = ctx.getCallerPrincipal();
+            Principal medecin = ctx.getCallerPrincipal();
             
-            sb.append(callerPrincipal.getName());
+            sb.append("medecin : "+ medecin.getName());
             return sb.toString();
         }
         else
         {
-            return null;
+            Principal laborantin = ctx.getCallerPrincipal();
+            
+            sb.append("laborantin : " + laborantin.getName());
+            return sb.toString();
         }
     }
 }
