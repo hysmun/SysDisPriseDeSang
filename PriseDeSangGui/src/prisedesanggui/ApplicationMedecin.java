@@ -27,17 +27,46 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        patientManagementButton = new javax.swing.JButton();
+        analysePrescribeButton = new javax.swing.JButton();
+        resultsButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Application SystDist - Médecin");
+
+        patientManagementButton.setText("Gérer les patients");
+
+        analysePrescribeButton.setText("Prescrire des analyses");
+
+        resultsButton.setText("Consulter les résultats");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(resultsButton)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(119, 119, 119)
+                            .addComponent(patientManagementButton)
+                            .addGap(14, 14, 14)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(analysePrescribeButton)))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(patientManagementButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(analysePrescribeButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resultsButton)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,5 +108,8 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton analysePrescribeButton;
+    private javax.swing.JButton patientManagementButton;
+    private javax.swing.JButton resultsButton;
     // End of variables declaration//GEN-END:variables
 }
