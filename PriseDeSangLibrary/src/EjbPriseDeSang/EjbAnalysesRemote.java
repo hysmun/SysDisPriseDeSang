@@ -5,6 +5,9 @@
  */
 package EjbPriseDeSang;
 
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -14,4 +17,15 @@ import javax.ejb.Remote;
 @Remote
 public interface EjbAnalysesRemote {
     
+    List getDemandeList();
+
+    List getAnalyseList();
+    
+    Demande getDemande(int pid);
+    
+    Analyse getAnalyse(int pid);
+    
+    Boolean addAnalyse(Analyse ppatient);
+    
+    Boolean addDemande(Demande ppatient);
 }
