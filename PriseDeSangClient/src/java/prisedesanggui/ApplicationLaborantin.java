@@ -5,19 +5,81 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalysesRemote;
+import EjbPriseDeSang.EjbLoginRemoteRemote;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Queue;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import prisedesangclient.Main;
+
 /**
  *
  * @author 'Toine
  */
-public class ApplicationLaborantin extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ApplicationLaborantin
-     */
+public class ApplicationLaborantin extends javax.swing.JFrame implements MessageListener {
+  
+    @EJB
+    private static EjbAnalysesRemote ejbAnalyse;
+    
+    private Topic top = null;
+    
+    private Queue queue = null;
+    
+    private Connection conTop = null;
+    
+    private Connection conQueue = null;
+    
+    private Session sesTop = null;
+    
+    private Session sesQue = null;
+        
+    private MessageConsumer cons = null;
+    
     public ApplicationLaborantin() {
         initComponents();
+             
+    }
+    
+    public ApplicationLaborantin(Topic top,Queue que, Session sesT, Session sesQ, Connection conT, Connection conQ) {
+        try {        
+            initComponents();
+            this.conTop = conT;
+            this.top = top;
+            this.sesTop = sesT;
+            this.conQueue = conQ;
+            this.sesQue = sesQ;
+            this.queue = que;
+            
+            cons = sesQ.createConsumer(que);
+            cons.setMessageListener(this);
+        } catch (JMSException ex) {
+            Logger.getLogger(ApplicationLaborantin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    @Override
+    public void onMessage(Message message)
+    {
+        TextMessage txt = (TextMessage)message;
+        DefaultListModel listModel = new DefaultListModel();
+        listModel.addElement(txt.toString());
+        demandeListe.setModel(listModel);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,4 +213,5 @@ public class ApplicationLaborantin extends javax.swing.JFrame {
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton traiterButton;
     // End of variables declaration//GEN-END:variables
+
 }
