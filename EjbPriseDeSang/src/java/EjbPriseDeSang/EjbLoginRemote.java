@@ -21,9 +21,6 @@ import javax.ejb.Stateless;
 @DeclareRoles({"medecin","laborantin"})
 public class EjbLoginRemote implements EjbLoginRemoteRemote {
 
-    @EJB
-    private EjbLoginLocal ejbLogin;
-
     @Resource SessionContext ctx;
     @RolesAllowed({"medecin","laborantin"})
     @Override
