@@ -15,7 +15,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @DeclareRoles("arole")
-public class EjbLogin implements EjbLoginRemote {
+public class EjbLogin implements EjbLoginLocal {
 
     @RolesAllowed("arole")
     @Override

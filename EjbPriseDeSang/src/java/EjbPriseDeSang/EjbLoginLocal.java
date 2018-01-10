@@ -9,7 +9,7 @@ package EjbPriseDeSang;
  *
  * @author Morghen
  */
-interface EjbLoginRemote {
+interface EjbLoginLocal {
     
     public String doIt(String p);
 }
