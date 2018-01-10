@@ -18,7 +18,7 @@ import javax.swing.event.ListDataListener;
  */
 public class GestionPatient extends javax.swing.JFrame {
 
-    @EJB
+    @EJB(beanInterface = EjbPatientRemote.class)
     private static EjbPatientRemote ejbPatientRemote;
     
     public List<Patient> lp;

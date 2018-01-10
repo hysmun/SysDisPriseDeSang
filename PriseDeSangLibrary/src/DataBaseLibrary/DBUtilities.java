@@ -34,8 +34,8 @@ public class DBUtilities {
         return true;
     }
     
-    public <T> List getList(Class c){
-        List<T> list = new LinkedList<>();
+    public <T> List<T> getList(Class c){
+        List<T> list = new LinkedList<T>();
         try {
             int number = getNbr(c);
             int j=1;

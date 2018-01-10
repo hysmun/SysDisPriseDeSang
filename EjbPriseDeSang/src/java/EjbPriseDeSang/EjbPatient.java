@@ -22,8 +22,8 @@ public class EjbPatient implements EjbPatientRemote {
     public List getPatientList() {
         DBUtilities uti = new DBUtilities();
         
-        List<Patient> lp;
-        lp = new LinkedList<Patient>( uti.getList(Patient.class));
+        List lp;
+        lp = uti.getList(Patient.class);
         return lp;
     }
 
