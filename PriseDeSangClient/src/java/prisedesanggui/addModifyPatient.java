@@ -24,7 +24,7 @@ public class addModifyPatient extends javax.swing.JDialog {
     public int type;
     
     @EJB
-    public EjbPatientRemote ejbPatient;
+    private static EjbPatientRemote ejbPatient;
     
     public addModifyPatient() {
         try {
@@ -47,13 +47,19 @@ public class addModifyPatient extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         type = ptype;
-        if(ptype == 1) // Ajout
+        if(ptype == AJOUT) // Ajout
         {
             infoLabel.setText("Nouveau utilisateur ");
         }
         else // Modification
         {
             Patient p;
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
             p=ejbPatient.getPatient(ptype);
             nameTextField.setText(p.getNom());
             surnameTextField.setText(p.getPrenom());
@@ -159,24 +165,33 @@ public class addModifyPatient extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKButtonMouseClicked
         // TODO add your handling code here:
         Patient p;
-        if(type == 1) // Ajout
+        if(type == AJOUT) // Ajout
         {
-            p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            p = new Patient(0,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
         }
         else // Modification
         {
             p = new Patient(type,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
         }
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ejbPatient.addPatient(p);
+        this.dispose();
     }//GEN-LAST:event_OKButtonMouseClicked
 
     private void CancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonMouseClicked
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_CancelButtonMouseClicked
 
     /**
