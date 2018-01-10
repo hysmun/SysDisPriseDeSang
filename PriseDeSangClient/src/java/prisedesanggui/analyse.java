@@ -140,7 +140,12 @@ public class analyse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
-        // Encodage des données sur le patient
+        // Encodage des données sur le patient dans la BDD
+        
+        // Generation du numero de réference ( = id demande )
+        
+        // Poster message sur la queue
+        
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
