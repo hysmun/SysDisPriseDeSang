@@ -74,6 +74,13 @@ public class EjbPatient implements EjbPatientRemote {
     
     @Override
     public Boolean modifPatient(Patient ppatient) {
-        return null;
+        try{
+            Patient p;
+            p=uti.em.find(Patient.class, ppatient);
+            uti.em.merge(p);
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
     }
 }

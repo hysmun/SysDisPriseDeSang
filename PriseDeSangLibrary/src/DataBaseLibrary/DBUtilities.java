@@ -29,6 +29,10 @@ public class DBUtilities {
         em.getTransaction().begin();
     }
     
+    public void commit(){
+        em.getTransaction().commit();
+    }
+    
     public boolean end(){
         em.close();
         return true;

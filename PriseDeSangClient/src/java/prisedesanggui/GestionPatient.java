@@ -139,8 +139,12 @@ public class GestionPatient extends javax.swing.JFrame {
 
     private void modifPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifPatientButtonMouseClicked
         // TODO add your handling code here:
-        addModifyPatient adp = new addModifyPatient(this, true, addModifyPatient.MODIF);
-        adp.setVisible(true);
+        if(patientJList.getSelectedIndex() > -1)
+        {
+            Patient p = lp.get(patientJList.getSelectedIndex());
+            addModifyPatient adp = new addModifyPatient(this, true, 0);
+            adp.setVisible(true);
+        }
     }//GEN-LAST:event_modifPatientButtonMouseClicked
 
     /**

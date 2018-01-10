@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,6 +43,7 @@ public class Patient implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "idPatient")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPatient;
     @Basic(optional = false)
     @NotNull
@@ -65,6 +68,12 @@ public class Patient implements Serializable {
 
     public Patient(Integer idPatient) {
         this.idPatient = idPatient;
+    }
+    
+    public Patient(String nom, String prenom, String login) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.login = login;
     }
 
     public Patient(Integer idPatient, String nom, String prenom, String login) {
