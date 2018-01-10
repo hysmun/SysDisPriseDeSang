@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
  *
  * @author 'Toine
  */
-@Singleton
+@Stateless
 public class EjbPatient implements EjbPatientRemote {
 
     @Override

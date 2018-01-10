@@ -6,11 +6,13 @@
 package prisedesanggui;
 
 import EjbPriseDeSang.EjbPatient;
+import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Patient;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
@@ -21,7 +23,7 @@ import javax.swing.event.ListDataListener;
 public class GestionPatient extends javax.swing.JFrame {
 
     @EJB
-    private static EjbPatient ejbPatientRemote;
+    private static EjbPatientRemote ejbPatient;
     
     public List<Patient> lp;
     
@@ -31,7 +33,16 @@ public class GestionPatient extends javax.swing.JFrame {
     public GestionPatient() {
         initComponents();
         this.setLocationRelativeTo(null);
-        lp = new ArrayList<Patient>(ejbPatientRemote.getPatientList());
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exception caught : " + ex);
+        } 
+        lp = new ArrayList<Patient>();
+        lp = ejbPatient.getPatientList();
         patientJList.setModel(new MyListModel(lp));
     }
 
@@ -115,7 +126,7 @@ public class GestionPatient extends javax.swing.JFrame {
 
     private void refreshPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPatientButtonMouseClicked
         // TODO add your handling code here:
-        lp = ejbPatientRemote.getPatientList();
+        lp = ejbPatient.getPatientList();
         patientJList.setModel(new MyListModel(lp));
     }//GEN-LAST:event_refreshPatientButtonMouseClicked
 
