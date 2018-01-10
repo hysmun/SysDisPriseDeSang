@@ -22,6 +22,14 @@ public class addModifyPatient extends javax.swing.JDialog {
     public addModifyPatient(java.awt.Frame parent,boolean modal,int type) {
         super(parent, modal);
         initComponents();
+        if(type == 1) // Ajout
+        {
+            
+        }
+        else // Modification
+        {
+
+        }
     }
 
     /**

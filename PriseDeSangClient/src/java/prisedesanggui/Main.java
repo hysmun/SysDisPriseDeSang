@@ -7,8 +7,17 @@ package prisedesanggui;
 
 /**
  *
- * @author 'Toine
+ * @author Morghen
  */
 public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+         ApplicationMedecin appMed = new ApplicationMedecin();
+         appMed.setVisible(true);
+    }
     
 }

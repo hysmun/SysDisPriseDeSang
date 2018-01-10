@@ -114,11 +114,13 @@ public class GestionPatient extends javax.swing.JPanel {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
+        addModifyPatient addWindows = new addModifyPatient(new java.awt.Frame(),true,1);
+        addWindows.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
-        // TODO add your handling code here:
+        addModifyPatient modWindows = new addModifyPatient(new java.awt.Frame(),true,2);
+        modWindows.setVisible(true);
     }//GEN-LAST:event_modifyButtonActionPerformed
 
 
