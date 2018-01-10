@@ -16,6 +16,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
      */
     public ApplicationMedecin() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -77,8 +78,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
 
     private void patientManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementButtonActionPerformed
         System.out.println("entree applic medecin");
-        GestionPatient gestion = new GestionPatient();
-        gestion.setVisible(true);
+        new GestionPatient().setVisible(true);
     }//GEN-LAST:event_patientManagementButtonActionPerformed
 
     /**
