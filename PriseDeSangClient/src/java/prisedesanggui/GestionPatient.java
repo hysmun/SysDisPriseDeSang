@@ -5,7 +5,7 @@
  */
 package prisedesanggui;
 
-import EjbPriseDeSang.EjbPatientRemote;
+import EjbPriseDeSang.EjbPatient;
 import PriseDeSangLibrary.Patient;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +19,8 @@ import javax.swing.event.ListDataListener;
  */
 public class GestionPatient extends javax.swing.JFrame {
 
-    @EJB(beanInterface = EjbPatientRemote.class)
-    private static EjbPatientRemote ejbPatientRemote;
+    @EJB
+    private static EjbPatient ejbPatientRemote;
     
     public List<Patient> lp;
     
