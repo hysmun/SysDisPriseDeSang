@@ -5,10 +5,13 @@
  */
 package Test;
 import DataBaseLibrary.*;
+import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.*;
+import java.time.Clock;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.persistence.*;
 /**
  *
@@ -16,6 +19,8 @@ import javax.persistence.*;
  */
 public class Main {
     
+    @EJB(beanInterface = EjbPatientRemote.class)
+    private static EjbPatientRemote ejbPatientRemote;
        
     public static void main(String[] args) {
         try {
@@ -32,11 +37,15 @@ public class Main {
                 System.out.println("medecin : " + m);
             }*/
             
-            DBUtilities uti = new DBUtilities();
-            lp = uti.getList(Patient.class);
-            for(Patient p : lp){
-                System.out.println(p.toString());
-            }
+            if(ejbPatientRemote == null)
+                System.out.println("ERREUR");
+            lp = ejbPatientRemote.getPatientList();
+            if(lp != null)
+                for(Patient p : lp){
+                    System.out.println(p.toString());
+                }
+            else
+                System.out.println("ERREUR NULL");
             
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

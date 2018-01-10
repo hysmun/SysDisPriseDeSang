@@ -7,6 +7,7 @@ package EjbPriseDeSang;
 
 import DataBaseLibrary.DBUtilities;
 import PriseDeSangLibrary.Patient;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,8 +23,8 @@ public class EjbPatient implements EjbPatientRemote {
     public List<Patient> getPatientList() {
         DBUtilities uti = new DBUtilities();
         
-        List<Patient> lp;
-        lp = new LinkedList<Patient>( uti.getList(Patient.class));
+        List lp;
+        lp = new LinkedList(uti.getList(Patient.class));
         return lp;
     }
 
