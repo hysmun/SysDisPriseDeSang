@@ -130,7 +130,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="nonprioLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Priorit&#xe9; normale :"/>
+        <Property name="text" type="java.lang.String" value="Priorite normale :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="refreshButton">

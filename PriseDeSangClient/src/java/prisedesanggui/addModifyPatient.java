@@ -100,7 +100,7 @@ public class addModifyPatient extends javax.swing.JDialog {
 
         nameLabel.setText("Nom :");
 
-        surnameLabel.setText("Prénom :");
+        surnameLabel.setText("Prenom :");
 
         loginLabel.setText("Login :");
 
