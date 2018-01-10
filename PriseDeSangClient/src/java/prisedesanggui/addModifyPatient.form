@@ -84,11 +84,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="OKButtonMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="CancelButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Annuler"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CancelButtonMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="nameTextField">
     </Component>

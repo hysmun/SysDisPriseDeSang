@@ -42,7 +42,6 @@ public class GestionPatient extends javax.swing.JFrame {
         {
             System.out.println("Exception caught : " + ex);
         } 
-        lp = new ArrayList<Patient>();
         lp = ejbPatient.getPatientList();
         patientJList.setModel(new MyListModel(lp));
     }
@@ -133,10 +132,14 @@ public class GestionPatient extends javax.swing.JFrame {
 
     private void addPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPatientButtonMouseClicked
         // TODO add your handling code here:
+        addModifyPatient adp = new addModifyPatient(this, true, addModifyPatient.AJOUT);
+        adp.setVisible(true);
     }//GEN-LAST:event_addPatientButtonMouseClicked
 
     private void modifPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifPatientButtonMouseClicked
         // TODO add your handling code here:
+        addModifyPatient adp = new addModifyPatient(this, true, addModifyPatient.MODIF);
+        adp.setVisible(true);
     }//GEN-LAST:event_modifPatientButtonMouseClicked
 
     /**

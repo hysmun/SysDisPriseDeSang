@@ -54,9 +54,14 @@ public class consulterAnalyse extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(nonprioListe);
 
-        nonprioLabel.setText("PrioritÃ© normale :");
+        nonprioLabel.setText("Priorité normale :");
 
         refreshButton.setText("Rafraichir");
+        refreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,6 +105,10 @@ public class consulterAnalyse extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refreshButtonMouseClicked
 
     /**
      * @param args the command line arguments
