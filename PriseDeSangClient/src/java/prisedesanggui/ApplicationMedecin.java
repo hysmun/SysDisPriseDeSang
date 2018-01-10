@@ -35,6 +35,11 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         setTitle("Application SystDist - Médecin");
 
         patientManagementButton.setText("Gérer les patients");
+        patientManagementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                patientManagementButtonActionPerformed(evt);
+            }
+        });
 
         analysePrescribeButton.setText("Prescrire des analyses");
 
@@ -45,16 +50,14 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(resultsButton)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(119, 119, 119)
                             .addComponent(patientManagementButton)
                             .addGap(14, 14, 14)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(analysePrescribeButton)))
+                    .addComponent(analysePrescribeButton))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -71,6 +74,11 @@ public class ApplicationMedecin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void patientManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementButtonActionPerformed
+        GestionPatient gestion = new GestionPatient();
+        gestion.setVisible(true);
+    }//GEN-LAST:event_patientManagementButtonActionPerformed
 
     /**
      * @param args the command line arguments

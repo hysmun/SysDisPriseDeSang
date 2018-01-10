@@ -38,10 +38,9 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
         }
         else
         {
-            Principal laborantin = ctx.getCallerPrincipal();
             
-            System.out.println("laborantin : " + laborantin.getName());
-
+            
+            System.out.println("laborantin connecté");
         }
     }
 }
