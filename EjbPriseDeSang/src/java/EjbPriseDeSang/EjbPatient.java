@@ -56,6 +56,7 @@ public class EjbPatient implements EjbPatientRemote {
     public Boolean addPatient(Patient ppatient) {
         try{
             uti.em.persist(ppatient);
+            uti.commit();
         }catch(Exception e){
             throw e;
         }
@@ -66,6 +67,7 @@ public class EjbPatient implements EjbPatientRemote {
     public Boolean addMedecin(Medecin ppatient) {
         try{
             uti.em.persist(ppatient);
+            uti.commit();
         }catch(Exception e){
             throw e;
         }
