@@ -15,38 +15,32 @@ import javax.ejb.Stateless;
 import javax.jms.Connection;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
 
-/**
- *
- * @author 'Toine
- */
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
     
+    private static MessageProducer prodQue = null;
+    private static MessageProducer prodTop = null;
+    
+    
     public static DBUtilities uti = new DBUtilities();
-    
+       
     @Override
-    public MessageProducer creaProducer(Connection con,Session ses,Topic top) {
-        MessageProducer prod = null;
-        try {
-            prod = ses.createProducer(top);
-        } catch (JMSException ex) {
-            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return prod;       
-    }
-    
-    @Override
-    public void sendMessage(String text,Session ses,MessageProducer prod)
+    public void sendMessage(String text,Session ses, Connection con, Topic top)
     {
         try
         {
+            if(prodTop == null)
+            {
+                prodTop = ses.createProducer(top);
+            }
             TextMessage txt = ses.createTextMessage();
             txt.setText(text);
-            prod.send(txt);
+            prodTop.send(txt);
         }
         catch(JMSException ex)
         {
@@ -54,6 +48,24 @@ public class EjbAnalyses implements EjbAnalysesRemote {
         }
     }
     
+    @Override
+    public void sendMessage(String text,Session ses, Connection con, Queue que)
+    {
+        try
+        {
+            if(prodQue == null)
+            {
+                prodQue = ses.createProducer(que);
+            }
+            TextMessage txt = ses.createTextMessage();
+            txt.setText(text);
+            prodQue.send(txt);
+        }
+        catch(JMSException ex)
+        {
+            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @Override
     public List getDemandeList() {
