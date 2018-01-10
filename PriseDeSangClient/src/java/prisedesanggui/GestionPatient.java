@@ -17,6 +17,7 @@ public class GestionPatient extends javax.swing.JPanel {
     public GestionPatient() {
         initComponents();
         System.out.println("entree gestion");
+        
     }
 
     /**
