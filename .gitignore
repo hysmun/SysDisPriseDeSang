@@ -39,3 +39,5 @@ hs_err_pid*
 /WSResultat/dist/
 /PriseDeSangGui/dist/
 /EAPriseDeSang/dist/
+/PriseDeSangClient/build/
+/PriseDeSangClient/nbproject/private/
