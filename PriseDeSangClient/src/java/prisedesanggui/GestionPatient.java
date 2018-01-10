@@ -5,18 +5,31 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbPatientRemote;
+import PriseDeSangLibrary.Patient;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
+
 /**
  *
- * @author Morghen
+ * @author 'Toine
  */
-public class GestionPatient extends javax.swing.JPanel {
+public class GestionPatient extends javax.swing.JFrame {
 
+    @EJB
+    private static EjbPatientRemote ejbPatientRemote;
+    
+    public List<Patient> lp;
+    
     /**
      * Creates new form GestionPatient
      */
     public GestionPatient() {
         initComponents();
-        System.out.println("entree gestion");
+        lp = ejbPatientRemote.getPatientList();
+        patientJList.setModel(new MyListModel(lp));
     }
 
     /**
@@ -28,109 +41,157 @@ public class GestionPatient extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        refreshPatientButton = new javax.swing.JButton();
+        addPatientButton = new javax.swing.JButton();
+        modifPatientButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listePatient = new javax.swing.JList<>();
-        labelListe = new javax.swing.JLabel();
-        refreshButton = new javax.swing.JButton();
-        addButton = new javax.swing.JButton();
-        modifyButton = new javax.swing.JButton();
+        patientJList = new javax.swing.JList<>();
 
-        setName("Gestion des patients"); // NOI18N
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        listePatient.setModel(new javax.swing.AbstractListModel<String>() {
+        refreshPatientButton.setText("Rafraichir");
+        refreshPatientButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshPatientButtonMouseClicked(evt);
+            }
+        });
+
+        addPatientButton.setText("Ajout Patient");
+        addPatientButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addPatientButtonMouseClicked(evt);
+            }
+        });
+
+        modifPatientButton.setText("Modif Patient");
+        modifPatientButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifPatientButtonMouseClicked(evt);
+            }
+        });
+
+        patientJList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(listePatient);
+        jScrollPane1.setViewportView(patientJList);
 
-        labelListe.setText("Liste des patients : ");
-
-        refreshButton.setText("Rafraichir liste");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
-        addButton.setText("Ajouter patient");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
-            }
-        });
-
-        modifyButton.setText("Modifier patient");
-        modifyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modifyButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(modifyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(34, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(refreshButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                                    .addComponent(addButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelListe)
-                        .addContainerGap())))
+                    .addComponent(refreshPatientButton)
+                    .addComponent(addPatientButton)
+                    .addComponent(modifPatientButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(labelListe)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(refreshButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(modifyButton)))
-                .addGap(70, 70, 70))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(refreshPatientButton)
+                .addGap(18, 18, 18)
+                .addComponent(addPatientButton)
+                .addGap(28, 28, 28)
+                .addComponent(modifPatientButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+    private void refreshPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshPatientButtonMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_refreshButtonActionPerformed
+        lp = ejbPatientRemote.getPatientList();
+        patientJList.setModel(new MyListModel(lp));
+    }//GEN-LAST:event_refreshPatientButtonMouseClicked
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        addModifyPatient addWindows = new addModifyPatient(new java.awt.Frame(),true,1);
-        addWindows.setVisible(true);
-    }//GEN-LAST:event_addButtonActionPerformed
+    private void addPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPatientButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addPatientButtonMouseClicked
 
-    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
-        addModifyPatient modWindows = new addModifyPatient(new java.awt.Frame(),true,2);
-        modWindows.setVisible(true);
-    }//GEN-LAST:event_modifyButtonActionPerformed
+    private void modifPatientButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifPatientButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modifPatientButtonMouseClicked
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GestionPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GestionPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GestionPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GestionPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GestionPatient().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
+    private javax.swing.JButton addPatientButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelListe;
-    private javax.swing.JList<String> listePatient;
-    private javax.swing.JButton modifyButton;
-    private javax.swing.JButton refreshButton;
+    private javax.swing.JButton modifPatientButton;
+    private javax.swing.JList<String> patientJList;
+    private javax.swing.JButton refreshPatientButton;
     // End of variables declaration//GEN-END:variables
+}
+
+
+class MyListModel implements ListModel{
+    public List lp;
+    public MyListModel(List l){
+        lp = l;
+    }
+    
+    @Override
+    public int getSize() {
+        return lp.size();
+    }
+
+    @Override
+    public Object getElementAt(int index) {
+        return lp.get(index);
+    }
+
+    @Override
+    public void addListDataListener(ListDataListener l) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListDataListener(ListDataListener l) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
