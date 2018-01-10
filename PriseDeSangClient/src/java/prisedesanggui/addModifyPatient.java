@@ -10,6 +10,12 @@ package prisedesanggui;
  * @author Morghen
  */
 public class addModifyPatient extends javax.swing.JDialog {
+    
+    public static int AJOUT = 1;
+    public static int MODIF = 2;
+    
+    public addModifyPatient() {
+    }
 
     /**
      * Creates new form addModifyPatient
@@ -54,12 +60,22 @@ public class addModifyPatient extends javax.swing.JDialog {
         setTitle("Ajout/Modification de patient");
 
         OKButton.setText("OK");
+        OKButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OKButtonMouseClicked(evt);
+            }
+        });
 
         CancelButton.setText("Annuler");
+        CancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelButtonMouseClicked(evt);
+            }
+        });
 
         nameLabel.setText("Nom :");
 
-        surnameLabel.setText("PrÃ©nom :");
+        surnameLabel.setText("Prénom :");
 
         loginLabel.setText("Login :");
 
@@ -111,6 +127,14 @@ public class addModifyPatient extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OKButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OKButtonMouseClicked
+
+    private void CancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CancelButtonMouseClicked
 
     /**
      * @param args the command line arguments
