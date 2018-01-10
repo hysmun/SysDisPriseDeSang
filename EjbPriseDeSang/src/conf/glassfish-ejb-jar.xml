@@ -3,8 +3,7 @@
 <glassfish-ejb-jar>
     <security-role-mapping>
     <role-name>arole</role-name>
-    <principal-name>auser</principal-name>
-    <group-name>agroup</group-name>
+    <group-name>medecin</group-name>
     </security-role-mapping>
   <enterprise-beans/>
 </glassfish-ejb-jar>
