@@ -17,22 +17,25 @@ import javax.ejb.Stateless;
  * @author Morghen
  */
 @Stateless
-@DeclareRoles("arole")
+@DeclareRoles({"medecin","laborantin"})
 public class EjbLogin implements EjbLoginLocal {
     
     @Resource SessionContext ctx;
-    @RolesAllowed("arole")
+    @RolesAllowed({"medecin","laborantin"})
     @Override
     public String doIt(String p) {
         
         StringBuilder sb = new StringBuilder();
         
-        if(ctx.isCallerInRole("arole")) {
+        if(ctx.isCallerInRole("medecin")) {
             Principal callerPrincipal = ctx.getCallerPrincipal();
-            if(callerPrincipal.getName().equals("georges"))
-                sb.append(" task done");
+            
+            sb.append(callerPrincipal.getName());
             return sb.toString();
         }
-        return null;
+        else
+        {
+            return null;
+        }
     }
 }
