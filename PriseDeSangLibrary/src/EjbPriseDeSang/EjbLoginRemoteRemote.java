@@ -14,6 +14,5 @@ import javax.ejb.Remote;
 @Remote
 public interface EjbLoginRemoteRemote {
     
-    public String doIt(String p);
-    String saySomething();
+    public void doIt(String p);
 }

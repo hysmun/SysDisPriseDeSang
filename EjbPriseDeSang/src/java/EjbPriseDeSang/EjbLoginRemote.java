@@ -24,32 +24,24 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
     @Resource SessionContext ctx;
     @RolesAllowed({"medecin","laborantin"})
     @Override
-    public String doIt(String p) {
-        
-        StringBuilder sb = new StringBuilder();
-        
-        System.out.println("Avant le caller");
-        
+    public void doIt(String p) {
+                
         if(ctx.isCallerInRole("medecin")) {
             Principal medecin = ctx.getCallerPrincipal();
+            //Connexion BDD et test si existant
             
-            sb.append("medecin : "+ medecin.getName());
             
-            System.out.println("Apres medecin");
-            return sb.toString();
+            //Si non existant on quitte
+            
+            System.out.println("medecin : " + medecin.getName());
+
         }
         else
         {
             Principal laborantin = ctx.getCallerPrincipal();
             
-            sb.append("laborantin : " + laborantin.getName());
-            System.out.println("Apres laborantin");
-            return sb.toString();
+            System.out.println("laborantin : " + laborantin.getName());
+
         }
-    }
-    
-    @Override
-    public String saySomething() {
-        return "tralala";
     }
 }
