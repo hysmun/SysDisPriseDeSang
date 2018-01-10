@@ -6,101 +6,108 @@
 package PriseDeSangLibrary;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author 'Toine
  */
-public class Analyse implements Serializable{
-    
-    public int Id;
-    
-    public String Item;
-    
-    public String Valeur;
+@Entity
+@Table(name = "analyse")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Analyse.findAll", query = "SELECT a FROM Analyse a")
+    , @NamedQuery(name = "Analyse.findByIdAnalyse", query = "SELECT a FROM Analyse a WHERE a.idAnalyse = :idAnalyse")
+    , @NamedQuery(name = "Analyse.findByItem", query = "SELECT a FROM Analyse a WHERE a.item = :item")
+    , @NamedQuery(name = "Analyse.findByValeur", query = "SELECT a FROM Analyse a WHERE a.valeur = :valeur")})
+public class Analyse implements Serializable {
 
-    public Analyse(int Id, String Item, String Valeur) {
-        this.Id = Id;
-        this.Item = Item;
-        this.Valeur = Valeur;
-    }
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idAnalyse")
+    private Integer idAnalyse;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "Item")
+    private String item;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "Valeur")
+    private String valeur;
 
     public Analyse() {
     }
 
-    @Override
-    public String toString() {
-        return "" + Id + ", " + Item + ", " + Valeur;
+    public Analyse(Integer idAnalyse) {
+        this.idAnalyse = idAnalyse;
+    }
+
+    public Analyse(Integer idAnalyse, String item, String valeur) {
+        this.idAnalyse = idAnalyse;
+        this.item = item;
+        this.valeur = valeur;
+    }
+
+    public Integer getIdAnalyse() {
+        return idAnalyse;
+    }
+
+    public void setIdAnalyse(Integer idAnalyse) {
+        this.idAnalyse = idAnalyse;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(String valeur) {
+        this.valeur = valeur;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public int hashCode() {
+        int hash = 0;
+        hash += (idAnalyse != null ? idAnalyse.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Analyse)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Analyse other = (Analyse) obj;
-        if (this.Id != other.Id) {
+        Analyse other = (Analyse) object;
+        if ((this.idAnalyse == null && other.idAnalyse != null) || (this.idAnalyse != null && !this.idAnalyse.equals(other.idAnalyse))) {
             return false;
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "PriseDeSangLibrary.Analyse[ idAnalyse=" + idAnalyse + " ]";
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="getter et setter">
-    /**
-     * Get the value of Item
-     *
-     * @return the value of Item
-     */
-    public String getItem() {
-        return Item;
-    }
-
-    /**
-     * Set the value of Item
-     *
-     * @param Item new value of Item
-     */
-    public void setItem(String Item) {
-        this.Item = Item;
-    }
-
-    /**
-     * Get the value of Valeur
-     *
-     * @return the value of Valeur
-     */
-    public String getValeur() {
-        return Valeur;
-    }
-
-    /**
-     * Set the value of Valeur
-     *
-     * @param Valeur new value of Valeur
-     */
-    public void setValeur(String Valeur) {
-        this.Valeur = Valeur;
-    }
-
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public int getId() {
-        return Id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(int id) {
-        this.Id = id;
-    }
-    //</editor-fold>
 }

@@ -7,143 +7,132 @@ package PriseDeSangLibrary;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author 'Toine
  */
-public class Demande implements Serializable{
-    
-    public int Id;
-    
-    public int RefPatient;
+@Entity
+@Table(name = "demande")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Demande.findAll", query = "SELECT d FROM Demande d")
+    , @NamedQuery(name = "Demande.findByIddemande", query = "SELECT d FROM Demande d WHERE d.iddemande = :iddemande")
+    , @NamedQuery(name = "Demande.findByDateHeureDemande", query = "SELECT d FROM Demande d WHERE d.dateHeureDemande = :dateHeureDemande")
+    , @NamedQuery(name = "Demande.findByUrgent", query = "SELECT d FROM Demande d WHERE d.urgent = :urgent")})
+public class Demande implements Serializable {
 
-    public int RefMedecin;
-
-    public Date DateHeureDemande;
-
-    public boolean Urgent;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "iddemande")
+    private Integer iddemande;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DateHeureDemande")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateHeureDemande;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Urgent")
+    private short urgent;
+    @JoinColumn(name = "RefMedecin", referencedColumnName = "idmedecin")
+    @ManyToOne(optional = false)
+    private Medecin refMedecin;
+    @JoinColumn(name = "RefPatient", referencedColumnName = "idPatient")
+    @ManyToOne(optional = false)
+    private Patient refPatient;
 
     public Demande() {
     }
 
-    public Demande(int Id, int RefPatient, int RefMedecin, Date DateHeureDemande, boolean Urgent) {
-        this.Id = Id;
-        this.RefPatient = RefPatient;
-        this.RefMedecin = RefMedecin;
-        this.DateHeureDemande = DateHeureDemande;
-        this.Urgent = Urgent;
+    public Demande(Integer iddemande) {
+        this.iddemande = iddemande;
+    }
+
+    public Demande(Integer iddemande, Date dateHeureDemande, short urgent) {
+        this.iddemande = iddemande;
+        this.dateHeureDemande = dateHeureDemande;
+        this.urgent = urgent;
+    }
+
+    public Integer getIddemande() {
+        return iddemande;
+    }
+
+    public void setIddemande(Integer iddemande) {
+        this.iddemande = iddemande;
+    }
+
+    public Date getDateHeureDemande() {
+        return dateHeureDemande;
+    }
+
+    public void setDateHeureDemande(Date dateHeureDemande) {
+        this.dateHeureDemande = dateHeureDemande;
+    }
+
+    public short getUrgent() {
+        return urgent;
+    }
+
+    public void setUrgent(short urgent) {
+        this.urgent = urgent;
+    }
+
+    public Medecin getRefMedecin() {
+        return refMedecin;
+    }
+
+    public void setRefMedecin(Medecin refMedecin) {
+        this.refMedecin = refMedecin;
+    }
+
+    public Patient getRefPatient() {
+        return refPatient;
+    }
+
+    public void setRefPatient(Patient refPatient) {
+        this.refPatient = refPatient;
     }
 
     @Override
-    public String toString() {
-        return "" + Id + ", " + RefPatient + ", " + RefMedecin + ", " + DateHeureDemande + ", " + Urgent;
+    public int hashCode() {
+        int hash = 0;
+        hash += (iddemande != null ? iddemande.hashCode() : 0);
+        return hash;
     }
-    
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Demande)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Demande other = (Demande) obj;
-        if (this.Id != other.Id) {
+        Demande other = (Demande) object;
+        if ((this.iddemande == null && other.iddemande != null) || (this.iddemande != null && !this.iddemande.equals(other.iddemande))) {
             return false;
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "PriseDeSangLibrary.Demande[ iddemande=" + iddemande + " ]";
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="getter et setter">
-    /**
-     * Get the value of Urgent
-     *
-     * @return the value of Urgent
-     */
-    public boolean isUrgent() {
-        return Urgent;
-    }
-
-    /**
-     * Set the value of Urgent
-     *
-     * @param Urgent new value of Urgent
-     */
-    public void setUrgent(boolean Urgent) {
-        this.Urgent = Urgent;
-    }
-
-    /**
-     * Get the value of DateHeureDemande
-     *
-     * @return the value of DateHeureDemande
-     */
-    public Date getDateHeureDemande() {
-        return DateHeureDemande;
-    }
-
-    /**
-     * Set the value of DateHeureDemande
-     *
-     * @param DateHeureDemande new value of DateHeureDemande
-     */
-    public void setDateHeureDemande(Date DateHeureDemande) {
-        this.DateHeureDemande = DateHeureDemande;
-    }
-
-    /**
-     * Get the value of RefMedecin
-     *
-     * @return the value of RefMedecin
-     */
-    public int getRefMedecin() {
-        return RefMedecin;
-    }
-
-    /**
-     * Set the value of RefMedecin
-     *
-     * @param RefMedecin new value of RefMedecin
-     */
-    public void setRefMedecin(int RefMedecin) {
-        this.RefMedecin = RefMedecin;
-    }
-
-    /**
-     * Get the value of RefPatient
-     *
-     * @return the value of RefPatient
-     */
-    public int getRefPatient() {
-        return RefPatient;
-    }
-
-    /**
-     * Set the value of RefPatient
-     *
-     * @param RefPatient new value of RefPatient
-     */
-    public void setRefPatient(int RefPatient) {
-        this.RefPatient = RefPatient;
-    }
-
-    /**
-     * Get the value of id
-     *
-     * @return the value of id
-     */
-    public int getId() {
-        return Id;
-    }
-
-    /**
-     * Set the value of id
-     *
-     * @param id new value of id
-     */
-    public void setId(int id) {
-        this.Id = id;
-    }
-    //</editor-fold>
 }

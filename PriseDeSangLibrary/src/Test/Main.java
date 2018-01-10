@@ -5,10 +5,11 @@
  */
 package Test;
 import DataBaseLibrary.*;
-import PriseDeSangLibrary.Medecin;
+import PriseDeSangLibrary.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.*;
 /**
  *
  * @author 'Toine
@@ -17,17 +18,29 @@ public class Main {
     
        
     public static void main(String[] args) {
-        /*try {
-            DBUtilities dbuti = new DBUtilities("root", "toor", "127.0.0.1", 5500);
-            List<Medecin> listMed = dbuti.getList(Medecin.class);
+        try {
+            List<Medecin> lm;
+            List<Analyse> la;
+            List<Demande> ld;
+            List<Patient> lp;
+            /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("PriseDeSangLibraryPU");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            List<Medecin> lm = em.createQuery("SELECT m FROM Medecin m").getResultList();
             
-            for(Medecin m : listMed){
-                System.out.println(m.toString());
+            for(Medecin m : lm){
+                System.out.println("medecin : " + m);
+            }*/
+            
+            DBUtilities uti = new DBUtilities();uti.getList(Patient.class);
+            lp = uti.getList(Patient.class);
+            for(Patient p : lp){
+                System.out.println(p.toString());
             }
             
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
         
     }
