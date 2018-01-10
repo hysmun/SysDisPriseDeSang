@@ -7,6 +7,7 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Patient;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.swing.ListModel;

@@ -19,8 +19,10 @@ public class testClient {
     private static EjbPatientRemote ejbPatientRemote;
   
     public static void main(String[] args) {
-        
+        System.out.println("DEBUT");
         ejbPatientRemote.getPatientList();
+        
+        System.out.println("FIN");
     }
     
 }
