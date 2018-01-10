@@ -55,8 +55,11 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Boolean addPatient(Patient ppatient) {
         try{
+            int id = uti.getNextId(Patient.class);
+            ppatient.setIdPatient(id);
             uti.em.persist(ppatient);
             uti.commit();
+            uti.em.getTransaction().begin();
         }catch(Exception e){
             throw e;
         }
@@ -66,8 +69,11 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Boolean addMedecin(Medecin ppatient) {
         try{
+            int id = uti.getNextId(Medecin.class);
+            ppatient.setIdmedecin(id);
             uti.em.persist(ppatient);
             uti.commit();
+            uti.em.getTransaction().begin();
         }catch(Exception e){
             throw e;
         }

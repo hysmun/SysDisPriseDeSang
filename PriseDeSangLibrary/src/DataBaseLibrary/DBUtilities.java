@@ -20,8 +20,8 @@ import javax.persistence.Persistence;
  */
 public class DBUtilities {
 
-    public EntityManagerFactory emf;
-    public EntityManager em;
+    public static EntityManagerFactory emf;
+    public static EntityManager em;
     
     public DBUtilities() {
         emf = Persistence.createEntityManagerFactory("PriseDeSangLibraryPU");
@@ -62,5 +62,17 @@ public class DBUtilities {
             throw e;
         }
         return nbr;
+    }
+    
+    public <T> int getNextId(Class c){
+        int nbr=0;
+        String name = c.getSimpleName();
+        ResultSet rs;
+        try {
+            nbr = em.createQuery("SELECT MAX(x.id"+name+") FROM "+name+" as x").getFirstResult();
+        } catch (Exception e) {
+            throw e;
+        }
+        return nbr+1;
     }
 }
