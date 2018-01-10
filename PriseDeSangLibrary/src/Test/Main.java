@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class Main {
     
     public static void main(String[] args) {
-        try {
+        /*try {
             DBUtilities dbuti = new DBUtilities("root", "toor", "127.0.0.1", 5500);
             List<Medecin> listMed = dbuti.getList(Medecin.class);
             
@@ -26,6 +26,8 @@ public class Main {
             
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        
+        
     }
 }
