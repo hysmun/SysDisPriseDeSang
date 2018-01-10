@@ -18,6 +18,7 @@ public class Main {
         
          ApplicationMedecin appMed = new ApplicationMedecin();
          appMed.setVisible(true);
+         System.out.println("fin main");
     }
     
 }
