@@ -31,3 +31,10 @@ hs_err_pid*
 /PriseDeSangLibrary/nbproject/private/
 /PriseDeSangLibrary/build/
 /PriseDeSangLibrary/dist/
+/PriseDeSangGui/build/
+/EjbPriseDeSang/dist/
+/EjbPriseDeSang/build/
+/EAPriseDeSang/build/
+/WSResultat/build/
+/WSResultat/dist/
+/PriseDeSangGui/dist/
