@@ -6,6 +6,9 @@
 package EjbPriseDeSang;
 
 import DataBaseLibrary.DBUtilities;
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
+import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -20,15 +23,57 @@ import javax.ejb.Stateless;
 @Stateless
 public class EjbPatient implements EjbPatientRemote {
 
+    public static DBUtilities uti = new DBUtilities();
+    
     @Override
-    public List<Patient> getPatientList() {
-        DBUtilities uti = new DBUtilities();
-        
+    public List getPatientList() {
         List lp;
         lp = uti.getList(Patient.class);
         return lp;
     }
+    
+    @Override
+    public List getMedecinList() {
+        List lp;
+        lp = uti.getList(Medecin.class);
+        return lp;
+    }
+    
+    @Override
+    public Patient getPatient(int pid) {
+        Patient p;
+        p = uti.em.find(Patient.class, pid);
+        return p;
+    }
+    @Override
+    public Medecin getMedecin(int pid) {
+        Medecin p;
+        p = uti.em.find(Medecin.class, pid);
+        return p;
+    }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public Boolean addPatient(Patient ppatient) {
+        try{
+            uti.em.persist(ppatient);
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
+    }
+    
+    @Override
+    public Boolean addMedecin(Medecin ppatient) {
+        try{
+            uti.em.persist(ppatient);
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
+    }
+    
+    @Override
+    public Boolean modifPatient(Patient ppatient) {
+        return null;
+    }
 }

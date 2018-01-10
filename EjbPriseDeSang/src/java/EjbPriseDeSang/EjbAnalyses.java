@@ -5,6 +5,10 @@
  */
 package EjbPriseDeSang;
 
+import DataBaseLibrary.DBUtilities;
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
@@ -13,7 +17,54 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
+    
+    public static DBUtilities uti = new DBUtilities();
+    
+    @Override
+    public List getDemandeList() {
+        List lp;
+        lp = uti.getList(Demande.class);
+        return lp;
+    }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public List getAnalyseList() {
+        List lp;
+        lp = uti.getList(Analyse.class);
+        return lp;
+    }
+    
+    @Override
+    public Demande getDemande(int pid) {
+        Demande p;
+        p = uti.em.find(Demande.class, pid);
+        return p;
+    }
+    
+    @Override
+    public Analyse getAnalyse(int pid) {
+        Analyse p;
+        p = uti.em.find(Analyse.class, pid);
+        return p;
+    }
+    
+    @Override
+    public Boolean addAnalyse(Analyse ppatient) {
+        try{
+            uti.em.persist(ppatient);
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
+    }
+    
+    @Override
+    public Boolean addDemande(Demande ppatient) {
+        try{
+            uti.em.persist(ppatient);
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
+    }
 }

@@ -5,6 +5,9 @@
  */
 package EjbPriseDeSang;
 
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
+import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +20,18 @@ import javax.ejb.Remote;
 @Remote
 public interface EjbPatientRemote {
 
-    List<Patient> getPatientList();
+    List getPatientList();
+    
+    List getMedecinList();
+
+    Patient getPatient(int pid);
+    
+    Medecin getMedecin(int pid);
+    
+    Boolean addPatient(Patient ppatient);
+    
+    Boolean addMedecin(Medecin ppatient);
+    
+    Boolean modifPatient(Patient ppatient);
     
 }

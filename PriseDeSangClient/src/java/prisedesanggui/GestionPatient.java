@@ -8,6 +8,7 @@ package prisedesanggui;
 import EjbPriseDeSang.EjbPatient;
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Patient;
+import PriseDeSangLibrary.PriseDeSangToString;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -185,8 +186,11 @@ public class GestionPatient extends javax.swing.JFrame {
 
 class MyListModel implements ListModel{
     public List lp;
+    public LinkedList<ListDataListener> lldl;
+    
     public MyListModel(List l){
         lp = l;
+        lldl = new LinkedList<ListDataListener>();
     }
     
     @Override
@@ -196,16 +200,16 @@ class MyListModel implements ListModel{
 
     @Override
     public Object getElementAt(int index) {
-        return lp.get(index);
+        return PriseDeSangToString.toString(lp.get(index));
     }
 
     @Override
     public void addListDataListener(ListDataListener l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lldl.add(l);
     }
 
     @Override
     public void removeListDataListener(ListDataListener l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        lldl.remove(l);
     }
 }
