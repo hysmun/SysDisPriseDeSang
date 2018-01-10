@@ -9,6 +9,10 @@ import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import java.util.List;
 import javax.ejb.Remote;
+import javax.jms.Connection;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.Topic;
 
 /**
  *
@@ -16,6 +20,10 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface EjbAnalysesRemote {
+    
+    MessageProducer creaProducer(Connection con,Session ses, Topic top);
+    
+    void sendMessage(String text,Session ses, MessageProducer prod);
     
     List getDemandeList();
 

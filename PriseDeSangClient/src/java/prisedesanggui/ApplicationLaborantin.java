@@ -5,19 +5,67 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalysesRemote;
+import EjbPriseDeSang.EjbLoginRemoteRemote;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import prisedesangclient.Main;
+
 /**
  *
  * @author 'Toine
  */
-public class ApplicationLaborantin extends javax.swing.JFrame {
+public class ApplicationLaborantin extends javax.swing.JFrame implements MessageListener {
 
-    /**
-     * Creates new form ApplicationLaborantin
-     */
+    @Resource(mappedName = "jms/TopicPDS")
+    private static Topic topicPDS;
+
+    @Resource(mappedName = "jms/TopicPDSFactory")
+    private static ConnectionFactory topicPDSFactory;
+
+    @EJB
+    private static EjbAnalysesRemote ejbAnalyse;
+    
+    private Topic top = null;
+    
+    private Connection con = null;
+    
+    private Session ses = null;
+        
+    private MessageConsumer cons = null;
+    
     public ApplicationLaborantin() {
         initComponents();
+             
+    }
+    
+    public ApplicationLaborantin(Connection con, Topic top, Session ses) {
+            initComponents();
     }
 
+    @Override
+    public void onMessage(Message message)
+    {
+        TextMessage txt = (TextMessage)message;
+        DefaultListModel listModel = new DefaultListModel();
+        listModel.addElement(txt.toString());
+        demandeListe.setModel(listModel);
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,4 +199,5 @@ public class ApplicationLaborantin extends javax.swing.JFrame {
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton traiterButton;
     // End of variables declaration//GEN-END:variables
+
 }

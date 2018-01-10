@@ -9,7 +9,15 @@ import DataBaseLibrary.DBUtilities;
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.jms.Topic;
 
 /**
  *
@@ -19,6 +27,33 @@ import javax.ejb.Stateless;
 public class EjbAnalyses implements EjbAnalysesRemote {
     
     public static DBUtilities uti = new DBUtilities();
+    
+    @Override
+    public MessageProducer creaProducer(Connection con,Session ses,Topic top) {
+        MessageProducer prod = null;
+        try {
+            prod = ses.createProducer(top);
+        } catch (JMSException ex) {
+            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return prod;       
+    }
+    
+    @Override
+    public void sendMessage(String text,Session ses,MessageProducer prod)
+    {
+        try
+        {
+            TextMessage txt = ses.createTextMessage();
+            txt.setText(text);
+            prod.send(txt);
+        }
+        catch(JMSException ex)
+        {
+            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     @Override
     public List getDemandeList() {
