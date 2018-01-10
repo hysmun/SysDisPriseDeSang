@@ -9,6 +9,7 @@ import java.security.Principal;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
@@ -19,6 +20,9 @@ import javax.ejb.Stateless;
 @Stateless
 @DeclareRoles({"medecin","laborantin"})
 public class EjbLoginRemote implements EjbLoginRemoteRemote {
+
+    @EJB
+    private EjbLoginLocal ejbLogin;
 
     @Resource SessionContext ctx;
     @RolesAllowed({"medecin","laborantin"})
@@ -45,7 +49,10 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
             System.out.println("Apres laborantin");
             return sb.toString();
         }
-        
-        
+    }
+    
+    @Override
+    public String saySomething() {
+        return "tralala";
     }
 }

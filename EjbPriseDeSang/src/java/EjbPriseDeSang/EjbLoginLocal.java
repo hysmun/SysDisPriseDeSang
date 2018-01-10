@@ -12,4 +12,6 @@ package EjbPriseDeSang;
 public interface EjbLoginLocal {
     
     public String doIt(String p);
+
+    String saySomething();
 }

@@ -41,4 +41,9 @@ public class EjbLogin implements EjbLoginLocal {
             return sb.toString();
         }
     }
+
+    @Override
+    public String saySomething() {
+        return "on est en local";
+    }
 }
