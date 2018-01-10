@@ -9,6 +9,7 @@ import EjbPriseDeSang.EjbPatient;
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Patient;
 import PriseDeSangLibrary.PriseDeSangToString;
+import Utilities.MyListModel;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -184,35 +185,4 @@ public class GestionPatient extends javax.swing.JFrame {
     private javax.swing.JList<String> patientJList;
     private javax.swing.JButton refreshPatientButton;
     // End of variables declaration//GEN-END:variables
-}
-
-
-class MyListModel implements ListModel{
-    public List lp;
-    public LinkedList<ListDataListener> lldl;
-    
-    public MyListModel(List l){
-        lp = l;
-        lldl = new LinkedList<ListDataListener>();
-    }
-    
-    @Override
-    public int getSize() {
-        return lp.size();
-    }
-
-    @Override
-    public Object getElementAt(int index) {
-        return PriseDeSangToString.toString(lp.get(index));
-    }
-
-    @Override
-    public void addListDataListener(ListDataListener l) {
-        lldl.add(l);
-    }
-
-    @Override
-    public void removeListDataListener(ListDataListener l) {
-        lldl.remove(l);
-    }
 }

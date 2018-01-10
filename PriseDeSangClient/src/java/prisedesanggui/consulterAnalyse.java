@@ -5,17 +5,34 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalysesRemote;
+import PriseDeSangLibrary.Analyse;
+import Utilities.MyListModel;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 /**
  *
  * @author Morghen
  */
 public class consulterAnalyse extends javax.swing.JFrame {
 
-    /**
-     * Creates new form consulterAnalyse
-     */
+    public EjbAnalysesRemote ejbAnalysesRemote;
+    
     public consulterAnalyse() {
         initComponents();
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbAnalyseRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        List<Analyse> la = ejbAnalysesRemote.getAnalyseList();
+        nonprioListe.setModel(new MyListModel(la));
     }
 
     /**
@@ -108,6 +125,8 @@ public class consulterAnalyse extends javax.swing.JFrame {
 
     private void refreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshButtonMouseClicked
         // TODO add your handling code here:
+        List<Analyse> la = ejbAnalysesRemote.getAnalyseList();
+        nonprioListe.setModel(new MyListModel(la));
     }//GEN-LAST:event_refreshButtonMouseClicked
 
     /**
