@@ -6,6 +6,7 @@
 package test;
 
 import EjbPriseDeSang.EjbLoginRemoteRemote;
+import EjbPriseDeSang.EjbPatientRemote;
 import javax.ejb.EJB;
 
 /**
@@ -15,11 +16,11 @@ import javax.ejb.EJB;
 public class testClient {
 
     @EJB
-    private static EjbLoginRemoteRemote ejbLoginRemote;
+    private static EjbPatientRemote ejbPatientRemote;
   
     public static void main(String[] args) {
         
-        ejbLoginRemote.doIt("coucou"); 
+        ejbPatientRemote.getPatientList();
     }
     
 }
