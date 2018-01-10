@@ -31,8 +31,7 @@ public class Main {
     @Resource(mappedName = "jms/TopicPDSFactory")
     private static ConnectionFactory topicPDSFactory;
 
-    @EJB
-    private static EjbLoginRemoteRemote ejbLogin;
+    
     
     private static Connection con = null;
     
@@ -48,5 +47,5 @@ public class Main {
         }
         
     }
-    
+        
 }

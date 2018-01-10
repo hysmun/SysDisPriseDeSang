@@ -33,7 +33,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         resultsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Application SystDist - Médecin");
+        setTitle("Application SystDist - Medecin");
 
         patientManagementButton.setText("Gerer les patients");
         patientManagementButton.addActionListener(new java.awt.event.ActionListener() {
