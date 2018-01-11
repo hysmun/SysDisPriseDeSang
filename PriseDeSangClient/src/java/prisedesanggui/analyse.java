@@ -81,6 +81,7 @@ public class analyse extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        typeBG = new javax.swing.ButtonGroup();
         patientBox = new javax.swing.JComboBox<>();
         patientLabel = new javax.swing.JLabel();
         OKButton = new javax.swing.JButton();
@@ -115,20 +116,27 @@ public class analyse extends javax.swing.JFrame {
             }
         });
 
+        typeBG.add(leuco);
         leuco.setText("Leucocytes");
 
-        hematie.setText("HÃ©maties");
+        typeBG.add(hematie);
+        hematie.setText("Hématies");
 
-        hemoglo.setText("HÃ©moglobine");
+        hemoglo.setText("Hémoglobine");
 
-        hemato.setText("HÃ©matocrite");
+        typeBG.add(hemato);
+        hemato.setText("Hématocrite");
 
+        typeBG.add(vgm);
         vgm.setText("VGM");
 
+        typeBG.add(ccmh);
         ccmh.setText("CCMH");
 
+        typeBG.add(tcmm);
         tcmm.setText("TCMM");
 
+        typeBG.add(rdw);
         rdw.setText("RDW");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,8 +219,10 @@ public class analyse extends javax.swing.JFrame {
         Patient pat = ejbPatient.getPatient(refPat);
         demande.setRefPatient(pat);
         ejbAnalyse.addDemande(demande);
+        String type="";
+        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"-1"));
         // Poster message sur la queue
-        ejbAnalyse.sendMessage("blabla", ses, con, que);
+        //ejbAnalyse.sendMessage("blabla", ses, con, que);
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
@@ -274,6 +284,7 @@ public class analyse extends javax.swing.JFrame {
     private javax.swing.JLabel patientLabel;
     private javax.swing.JCheckBox rdw;
     private javax.swing.JCheckBox tcmm;
+    private javax.swing.ButtonGroup typeBG;
     private javax.swing.JCheckBox vgm;
     // End of variables declaration//GEN-END:variables
 }
