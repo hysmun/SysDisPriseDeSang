@@ -94,8 +94,32 @@ public class EjbAnalyses implements EjbAnalysesRemote {
         lp = uti.getList(Analyse.class);
         LinkedList<Analyse> lpdone = new LinkedList<>();
         for(Analyse a : (List<Analyse>)lp){
-            if(Double.parseDouble(a.getValeur()) >=0.0)
+            if(! a.getValeur().equals("NULL"))
                 lpdone.add(a);
+        }
+        return lpdone;
+    }
+    
+    @Override
+    public List getAnalyseNotDone() {
+        List lp;
+        lp = uti.getList(Analyse.class);
+        LinkedList<Analyse> lpdone = new LinkedList<>();
+        for(Analyse a : (List<Analyse>)lp){
+            if(a.getValeur().equals("NULL"))
+                lpdone.add(a);
+        }
+        return lpdone;
+    }
+    
+    @Override
+    public List getDemandeNotDone() {
+        List lp;
+        lp = uti.getList(Analyse.class);
+        LinkedList<Demande> lpdone = new LinkedList<>();
+        for(Analyse a : (List<Analyse>)lp){
+            if(a.getValeur().equals("NULL"))
+                lpdone.add(getDemande(a.getIdAnalyse()));
         }
         return lpdone;
     }

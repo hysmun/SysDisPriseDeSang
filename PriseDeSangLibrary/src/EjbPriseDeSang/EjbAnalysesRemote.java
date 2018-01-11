@@ -42,5 +42,9 @@ public interface EjbAnalysesRemote {
     
     List getAnalyseDone();
     
+    List getAnalyseNotDone();
+    
+    List getDemandeNotDone();
+    
     int nextIdDemande();
 }

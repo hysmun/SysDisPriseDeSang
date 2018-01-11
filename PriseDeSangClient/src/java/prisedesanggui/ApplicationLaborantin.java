@@ -7,7 +7,13 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbAnalysesRemote;
 import EjbPriseDeSang.EjbLoginRemoteRemote;
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
+import PriseDeSangLibrary.PriseDeSangToString;
 import Utilities.AllVariables;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -23,6 +29,8 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import prisedesangclient.Main;
@@ -50,6 +58,8 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         
     private MessageConsumer cons = null;
     
+    public DefaultListModel listModel;
+    
     public ApplicationLaborantin() {
         initComponents();
              
@@ -67,6 +77,7 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
             
             cons = sesQue.createConsumer(queue);
             cons.setMessageListener(this);
+            refreshButtonActionPerformed(null);
         } catch (JMSException ex) {
             Logger.getLogger(ApplicationLaborantin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +87,6 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
     public void onMessage(Message message)
     {
         TextMessage txt = (TextMessage)message;
-        DefaultListModel listModel = new DefaultListModel();
         listModel.addElement(txt.toString());
         demandeListe.setModel(listModel);
     }
@@ -127,9 +137,6 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(152, 152, 152)
@@ -139,7 +146,10 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(demandeLabel)))
-                        .addGap(0, 117, Short.MAX_VALUE)))
+                        .addGap(0, 212, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,7 +162,7 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
                 .addGap(14, 14, 14)
                 .addComponent(demandeLabel)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -161,6 +171,17 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         // TODO add your handling code here:
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        listModel = new DefaultListModel();
+        List<Demande> la = ejbAnalyse.getDemandeNotDone();
+        for(Demande a: la){
+            listModel.addElement(PriseDeSangToString.demandeToString(a));
+        }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void traiterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_traiterButtonActionPerformed
@@ -170,6 +191,12 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         }
         else
         {
+            String data="";
+            data = demandeListe.getSelectedValue();
+            StringTokenizer strTok = new StringTokenizer(data, ":");
+            int idAnalyse = Integer.parseInt(strTok.nextToken());
+            traitementDemande td = new traitementDemande(this, true, idAnalyse);
+            td.setVisible(true);
             
         }
     }//GEN-LAST:event_traiterButtonActionPerformed
