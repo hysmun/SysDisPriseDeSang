@@ -84,7 +84,7 @@ public class DBUtilities {
         try {
             nbr = ((Integer)em.createQuery("SELECT MAX(x.id"+name+") FROM "+name+" as x").getResultList().get(0));
         } catch (Exception e) {
-            throw e;
+            nbr = 1;
         }
         return nbr+1;
     }
