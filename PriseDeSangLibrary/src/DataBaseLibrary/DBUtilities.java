@@ -57,7 +57,7 @@ public class DBUtilities {
         String name = c.getSimpleName();
         ResultSet rs;
         try {
-            Long tmp = ((Long)em.createQuery("SELECT MAX(x.id"+name+") FROM "+name+" as x").getResultList().get(0));
+            Long tmp = ((Long)em.createQuery("SELECT count(*) FROM "+name+" as x").getResultList().get(0));
             nbr = tmp.intValue();
         } catch (Exception e) {
             throw e;
