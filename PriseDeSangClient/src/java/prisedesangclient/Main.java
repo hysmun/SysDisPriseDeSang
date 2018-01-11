@@ -22,7 +22,7 @@ public class Main {
     
     public static AllVariables ar;
     
-    public static int nbrFen = 2;
+    public static int nbrFen = 1;
     
     public static void main(String[] args) {
         
