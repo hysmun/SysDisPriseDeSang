@@ -105,7 +105,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     }//GEN-LAST:event_analysePrescribeButtonActionPerformed
 
     private void resultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsButtonActionPerformed
-        new consulterAnalyse().setVisible(true);
+        new consulterAnalyse(ar).setVisible(true);
     }//GEN-LAST:event_resultsButtonActionPerformed
 
     /**

@@ -37,11 +37,18 @@ import org.jboss.weld.logging.Category;
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
     
-    private static Connection con =null;
-    private static Session ses =null;
+    private static Connection conQ =null;
+    private static Session sesQ =null;
     
-    private static MessageProducer prod = null;
+    private static MessageProducer prodQ = null;
 
+    
+    private static Connection conT =null;
+    private static Session sesT =null;
+    
+    private static MessageProducer prodT = null;
+    
+    
     public static DBUtilities uti = new DBUtilities();
     
     
@@ -132,11 +139,11 @@ public class EjbAnalyses implements EjbAnalysesRemote {
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
-            if(prod == null)
-                prod = av.sesQue.createProducer(av.queue);
+            if(prodQ == null)
+                prodQ = av.sesQue.createProducer(av.queue);
             TextMessage tm = av.sesQue.createTextMessage();
             tm.setText(""+ppatient.getIdAnalyse());
-            prod.send(tm);
+            prodQ.send(tm);
         }catch(Exception e){
             Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -185,5 +192,28 @@ public class EjbAnalyses implements EjbAnalysesRemote {
         }
         return true;
     }
+    
+    @Override
+    public Boolean modifAnalyse(Analyse ppatient, AllVariables av) {
+        try{
+            Analyse p;
+            //p=uti.em.find(Patient.class, ppatient);
+            uti.em.merge(ppatient);
+            uti.commit();
+            uti.em.getTransaction().begin();
+            Demande d= uti.getById(Demande.class, ppatient.getIdAnalyse());
+            if(prodT == null)
+                prodT = av.sesTop.createProducer(av.topic);
+            
+            TextMessage tm = av.sesTop.createTextMessage();
+            tm.setBooleanProperty("urgent",d.getUrgent()== 0 ? false: true);
+            tm.setText(""+ppatient.getIdAnalyse());
+            prodT.send(tm);
+        }catch(Exception e){
+            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return true;
+    }
+    
     
 }

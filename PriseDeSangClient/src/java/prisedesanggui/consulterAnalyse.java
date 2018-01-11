@@ -7,12 +7,19 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbAnalysesRemote;
 import PriseDeSangLibrary.Analyse;
+import Utilities.AllVariables;
 import Utilities.MyListModel;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
+import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -20,12 +27,20 @@ import javax.naming.NamingException;
  *
  * @author Morghen
  */
-public class consulterAnalyse extends javax.swing.JFrame {
+public class consulterAnalyse extends javax.swing.JFrame implements MessageListener{
 
     @EJB
     public EjbAnalysesRemote ejbAnalysesRemote;
     
-    public consulterAnalyse() {
+    private Connection conTop = null;
+    private Session sestop = null;
+    private MessageConsumer cons = null;
+    
+    public AllVariables av;
+    
+    public consulterAnalyse() {}
+    public consulterAnalyse( AllVariables tav) {
+        av=tav;
         initComponents();
         try {
             InitialContext ctx = new InitialContext();
@@ -35,6 +50,13 @@ public class consulterAnalyse extends javax.swing.JFrame {
         }
         List<Analyse> la = ejbAnalysesRemote.getAnalyseDone();
         nonprioListe.setModel(new MyListModel(la));
+        try {
+            cons = av.sesTop.createConsumer(av.topic);
+            cons.setMessageListener(this);
+        } catch (JMSException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -177,4 +199,10 @@ public class consulterAnalyse extends javax.swing.JFrame {
     private javax.swing.JLabel urgentLabel;
     private javax.swing.JList<String> urgentListe;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void onMessage(Message message) {
+        
+    }
+
 }
