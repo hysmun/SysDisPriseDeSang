@@ -20,6 +20,8 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
@@ -29,7 +31,18 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     
     
     public static DBUtilities uti = new DBUtilities();
-       
+    
+    public static EjbAnalysesRemote generateInstance(){
+        EjbAnalysesRemote instance=null;
+        try {
+            InitialContext ctx = new InitialContext();
+            instance = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbAnalyseRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(NamingException.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return instance;
+    }
+    
     @Override
     public void sendMessage(String text,Session ses, Connection con, Topic top)
     {
