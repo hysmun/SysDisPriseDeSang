@@ -7,6 +7,7 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbAnalysesRemote;
 import PriseDeSangLibrary.Analyse;
+import Utilities.AllVariables;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -25,6 +26,7 @@ public class traitementDemande extends javax.swing.JDialog {
     public EjbAnalysesRemote ejbAnalysesRemote;
     
     public int id;
+    public AllVariables av;
     
     /**
      * Creates new form traitementDemande
@@ -34,9 +36,10 @@ public class traitementDemande extends javax.swing.JDialog {
         initComponents();
     }
     
-    public traitementDemande(java.awt.Frame parent, boolean modal, int pid) {
+    public traitementDemande(java.awt.Frame parent, boolean modal, int pid, AllVariables tav) {
         super(parent, modal);
         id = pid;
+        av = tav;
         initComponents();
         try {
             InitialContext ctx = new InitialContext();
@@ -143,6 +146,7 @@ public class traitementDemande extends javax.swing.JDialog {
             } catch (NamingException ex) {
                 Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()), av);
             ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
             System.out.println("id = "+id);
             // Envoie de message sur le TOPIC si demande urgente

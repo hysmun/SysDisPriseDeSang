@@ -43,30 +43,24 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
   
     @EJB
     private static EjbAnalysesRemote ejbAnalyse;
-    
-    private Queue queue = null;
-    
-    private Connection conQueue = null;
-    
-    private Session sesQue = null;
-        
+   
     private MessageConsumer cons = null;
     
     public DefaultListModel listModel;
+    
+    public AllVariables av;
     
     public ApplicationLaborantin() {
         initComponents();
              
     }
     
-    public ApplicationLaborantin(AllVariables av) {
+    public ApplicationLaborantin(AllVariables tav) {
         try {        
             initComponents();
-            this.conQueue = av.conQue;
-            this.sesQue = av.sesQue;
-            this.queue = av.queue;
+            av = tav;
             
-            cons = sesQue.createConsumer(queue);
+            cons = av.sesQue.createConsumer(av.queue);
             cons.setMessageListener(this);
             refreshButtonActionPerformed(null);
         } catch (JMSException ex) {
@@ -199,7 +193,7 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
             data = demandeListe.getSelectedValue();
             StringTokenizer strTok = new StringTokenizer(data, ":");
             int idAnalyse = Integer.parseInt(strTok.nextToken());
-            traitementDemande td = new traitementDemande(this, true, idAnalyse);
+            traitementDemande td = new traitementDemande(this, true, idAnalyse, av);
             td.setVisible(true);
             
         }
