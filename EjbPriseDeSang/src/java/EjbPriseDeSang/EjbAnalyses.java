@@ -6,6 +6,7 @@
 package EjbPriseDeSang;
 
 import DataBaseLibrary.DBUtilities;
+import static EjbPriseDeSang.EjbPatient.uti;
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import java.util.List;
@@ -99,6 +100,8 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     public Boolean addAnalyse(Analyse ppatient) {
         try{
             uti.em.persist(ppatient);
+            uti.commit();
+            uti.em.getTransaction().begin();
         }catch(Exception e){
             throw e;
         }
@@ -109,6 +112,8 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     public Boolean addDemande(Demande ppatient) {
         try{
             uti.em.persist(ppatient);
+            uti.commit();
+            uti.em.getTransaction().begin();
         }catch(Exception e){
             throw e;
         }

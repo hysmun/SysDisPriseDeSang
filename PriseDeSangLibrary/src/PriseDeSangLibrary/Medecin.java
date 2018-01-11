@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medecin.findAll", query = "SELECT m FROM Medecin m")
-    , @NamedQuery(name = "Medecin.findByIdmedecin", query = "SELECT m FROM Medecin m WHERE m.idmedecin = :idmedecin")
+    , @NamedQuery(name = "Medecin.findByIdmedecin", query = "SELECT m FROM Medecin m WHERE m.idmedecin = :idMedecin")
     , @NamedQuery(name = "Medecin.findByNom", query = "SELECT m FROM Medecin m WHERE m.nom = :nom")
     , @NamedQuery(name = "Medecin.findByPrenom", query = "SELECT m FROM Medecin m WHERE m.prenom = :prenom")
     , @NamedQuery(name = "Medecin.findByLogin", query = "SELECT m FROM Medecin m WHERE m.login = :login")})
@@ -42,8 +42,7 @@ public class Medecin implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idmedecin")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idMedecin")
     private Integer idmedecin;
     @Basic(optional = false)
     @NotNull

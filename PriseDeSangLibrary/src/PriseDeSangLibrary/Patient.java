@@ -43,7 +43,6 @@ public class Patient implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "idPatient")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPatient;
     @Basic(optional = false)
     @NotNull

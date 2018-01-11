@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Demande.findAll", query = "SELECT d FROM Demande d")
-    , @NamedQuery(name = "Demande.findByIddemande", query = "SELECT d FROM Demande d WHERE d.iddemande = :iddemande")
+    , @NamedQuery(name = "Demande.findByIddemande", query = "SELECT d FROM Demande d WHERE d.iddemande = :idDemande")
     , @NamedQuery(name = "Demande.findByDateHeureDemande", query = "SELECT d FROM Demande d WHERE d.dateHeureDemande = :dateHeureDemande")
     , @NamedQuery(name = "Demande.findByUrgent", query = "SELECT d FROM Demande d WHERE d.urgent = :urgent")})
 public class Demande implements Serializable {
@@ -41,8 +41,7 @@ public class Demande implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "iddemande")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "idDemande")
     private Integer iddemande;
     @Basic(optional = false)
     @NotNull

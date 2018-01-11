@@ -173,7 +173,7 @@ public class addModifyPatient extends javax.swing.JDialog {
         Patient p;
         if(type == AJOUT) // Ajout
         {
-            p = new Patient(0,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
         }
         else // Modification
         {

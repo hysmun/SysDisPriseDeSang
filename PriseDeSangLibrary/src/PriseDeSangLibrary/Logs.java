@@ -34,7 +34,7 @@ public class Logs implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idlogs")
+    @Column(name = "idLogs")
     private Integer idlogs;
     @Basic(optional = false)
     @NotNull
