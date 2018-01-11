@@ -5,7 +5,11 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalyses;
+import EjbPriseDeSang.EjbAnalysesRemote;
 import EjbPriseDeSang.EjbPatientRemote;
+import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
 import PriseDeSangLibrary.Patient;
 import java.util.ArrayList;
 import javax.ejb.EJB;
@@ -21,6 +25,9 @@ public class analyse extends javax.swing.JFrame {
     
     @EJB
     private static EjbPatientRemote ejbPatient;
+    
+    @EJB
+    private static EjbAnalysesRemote ejbAnalyse;
     
     public analyse() {
         initComponents();
@@ -164,11 +171,20 @@ public class analyse extends javax.swing.JFrame {
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
         // Encodage des données sur le patient dans la BDD
-        
+        try {
+        InitialContext ctx = new InitialContext();
+        ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exception caught : " + ex);
+        } 
+        int idAnalyse;
+        Demande demande = new Demande();
         // Generation du numero de réference ( = id demande )
         
         // Poster message sur la queue
-        
+        ejbAnalyse.sendMessage(text, ses, con, que);
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
