@@ -5,6 +5,7 @@
  */
 package EjbPriseDeSang;
 
+import DataBaseLibrary.DBUtilities;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
@@ -31,6 +32,7 @@ import javax.jms.TextMessage;
 })
 public class MDBLog implements MessageListener {
     
+    public DBUtilities uti = new DBUtilities();
     public MDBLog() {
     }
     
@@ -39,6 +41,8 @@ public class MDBLog implements MessageListener {
         try {
             TextMessage txt = (TextMessage)message;
             System.out.println("--- Message recu : " + txt.getText() + " ---");
+            
+            uti.logMsg(txt.getText());
         } catch (JMSException ex) {
             Logger.getLogger(MDBLog.class.getName()).log(Level.SEVERE, null, ex);
         }
