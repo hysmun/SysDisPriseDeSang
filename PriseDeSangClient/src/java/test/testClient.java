@@ -23,7 +23,7 @@ public class testClient {
   
     public static void main(String[] args) {
         System.out.println("DEBUT");
-        ejbLogin.doIt("coucou");
+        ejbLogin.connect();
         //ejbPatientRemote.getPatientList();
         
         System.out.println("FIN");

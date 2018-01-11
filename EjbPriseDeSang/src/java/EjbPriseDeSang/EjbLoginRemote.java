@@ -5,7 +5,11 @@
  */
 package EjbPriseDeSang;
 
+import DataBaseLibrary.DBUtilities;
+import PriseDeSangLibrary.Medecin;
 import java.security.Principal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -21,27 +25,35 @@ import javax.ejb.Stateless;
 @DeclareRoles({"medecin","laborantin"})
 public class EjbLoginRemote implements EjbLoginRemoteRemote {
 
+    public DBUtilities db = new DBUtilities();
+    
     @Resource SessionContext ctx;
     @RolesAllowed({"medecin","laborantin"})
     @Override
-    public void doIt(String p) {
+    public int connect(){
                 
         
         if(ctx.isCallerInRole("medecin")) {
-            Principal medecin = ctx.getCallerPrincipal();
+            System.out.println("medecin");
+            Principal med = ctx.getCallerPrincipal();
             //Connexion BDD et test si existant
-            
-            
-            //Si non existant on quitte
-            
-            System.out.println("medecin : " + medecin.getName());
-
+            try{
+                Medecin m = db.getByNom(Medecin.class, med.getName());
+                if(m == null){
+                    return -1;
+                }
+                else{
+                    return 1;
+                }
+            } catch(Exception ex){
+                Logger.getLogger(EjbLoginRemote.class.getName()).log(Level.SEVERE, null, ex);
+                return -1;
+            }
         }
-        else
-        {
-            
-            
-            System.out.println("laborantin connecté");
+        if(ctx.isCallerInRole("laborantin")){
+            System.out.println("laborantin");
+            return 2;
         }
+        return -1;
     }
 }

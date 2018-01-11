@@ -52,6 +52,19 @@ public class DBUtilities {
         return ret;
     }
     
+    public <T> T getByNom(Class c, String nom){
+        T ret=null;
+        try {
+            int j=1;
+            ResultSet rs;
+            String name = c.getSimpleName();
+            ret = (T) em.createQuery("SELECT x FROM "+name+" as x WHERE x.Nom LIKE "+nom).getResultList().get(0);
+        } catch(Exception e){
+            throw e;
+        }
+        return ret;
+    }
+    
     public <T> List<T> getList(Class c){
         List<T> list =null;
         try {
