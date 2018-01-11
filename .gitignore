@@ -52,3 +52,8 @@ hs_err_pid*
 /EAWebService/EAWebService-ejb/build/
 /EAWebService/build/
 /WSResultatClient/nbproject/private/
+/WSResultatClient/build/
+/WSResultatClient/dist/
+/EAWebService/dist/
+/EAWebService/EAWebService-war/build/
+/EAWebService/EAWebService-war/dist/
