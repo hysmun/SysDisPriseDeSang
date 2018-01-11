@@ -57,6 +57,8 @@ public class AllVariables {
             sesTop = conTop.createSession(false, Session.AUTO_ACKNOWLEDGE);
             conQue = queuePDSFactory.createConnection();
             sesQue = conQue.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            conQue.start();
+            conTop.start();
         } catch (JMSException ex) {
             Logger.getLogger(AllVariables.class.getName()).log(Level.SEVERE, null, ex);
         }
