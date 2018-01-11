@@ -12,6 +12,7 @@ import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
+import Utilities.AllVariables;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -47,8 +48,12 @@ public class analyse extends javax.swing.JFrame {
         initComponents();
     }
     
-    public analyse(int refMedecin) {
+    public analyse(int refMedecin,AllVariables av) {
         initComponents();
+        this.ses = av.sesQue;
+        this.con = av.conQue;
+        this.que = av.queue;
+        
         try {
             InitialContext ctx = new InitialContext();
             ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");

@@ -7,6 +7,7 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbAnalysesRemote;
 import EjbPriseDeSang.EjbLoginRemoteRemote;
+import Utilities.AllVariables;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -54,17 +55,17 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
              
     }
     
-    public ApplicationLaborantin(Topic top,Queue que, Session sesT, Session sesQ, Connection conT, Connection conQ) {
+    public ApplicationLaborantin(AllVariables av) {
         try {        
             initComponents();
-            this.conTop = conT;
-            this.top = top;
-            this.sesTop = sesT;
-            this.conQueue = conQ;
-            this.sesQue = sesQ;
-            this.queue = que;
+            this.conTop = av.conTop;
+            this.top = av.topic;
+            this.sesTop = av.sesTop;
+            this.conQueue = av.conQue;
+            this.sesQue = av.sesQue;
+            this.queue = av.queue;
             
-            cons = sesQ.createConsumer(que);
+            cons = sesQue.createConsumer(queue);
             cons.setMessageListener(this);
         } catch (JMSException ex) {
             Logger.getLogger(ApplicationLaborantin.class.getName()).log(Level.SEVERE, null, ex);
