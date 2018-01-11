@@ -114,6 +114,17 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     }
     
     @Override
+    public int nextIdDemande(){
+        int nbr;
+        try{
+            nbr = uti.getNextId(Demande.class);
+        }catch(Exception e){
+            throw e;
+        }
+        return nbr;
+    }
+    
+    @Override
     public Boolean addDemande(Demande ppatient) {
         try{
             int id = uti.getNextId(Analyse.class);
