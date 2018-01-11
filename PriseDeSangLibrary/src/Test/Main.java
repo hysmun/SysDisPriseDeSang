@@ -33,9 +33,17 @@ public class Main {
             List<Analyse> la;
             List<Demande> ld;
             List<Patient> lp;
+            double test = -1.0;
+            String testStr = "-1.0";
+            System.out.println("Value : "+ test);
+            System.out.println("str : "+ Double.parseDouble(testStr));
             
+            if( Double.parseDouble(testStr) >= 0.0)
+                System.out.println("YES");
+            else
+                 System.out.println("NO");
             
-            ejbLoginRemoteRemote.doIt("coucou");
+            //ejbLoginRemoteRemote.doIt("coucou");
             
             /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("PriseDeSangLibraryPU");
             EntityManager em = emf.createEntityManager();
