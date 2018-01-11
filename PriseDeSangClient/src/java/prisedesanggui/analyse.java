@@ -220,7 +220,23 @@ public class analyse extends javax.swing.JFrame {
         Patient pat = ejbPatient.getPatient(refPat);
         demande.setRefPatient(pat);
         ejbAnalyse.addDemande(demande);
-        String type="";
+        String type="default";
+        if(hemato.isSelected())
+            type = "hemato";
+        if(hemoglo.isSelected())
+            type = "hemoglo";
+        if(hematie.isSelected())
+            type = "hematie";
+        if(leuco.isSelected())
+            type = "leuco";
+        if(tcmm.isSelected())
+            type = "tcmm";
+        if(vgm.isSelected())
+            type = "vgm";
+        if(ccmh.isSelected())
+            type = "ccmh";
+        if(rdw.isSelected())
+            type = "rdw";
         ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"-1"));
         // Poster message sur la queue
         //ejbAnalyse.sendMessage("blabla", ses, con, que);
