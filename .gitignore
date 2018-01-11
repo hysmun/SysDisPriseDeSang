@@ -61,3 +61,5 @@ hs_err_pid*
 /EAResultat/EAResultat-ejb/nbproject/private/
 /EAResultat/EAResultat-ejb/build/
 /EAResultat/EAResultat-ejb/dist/
+/EAResultat/build/
+/EAResultat/dist/

@@ -5,17 +5,25 @@
  */
 package wsresultatclient;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ws.Analyse;
+
 /**
  *
  * @author 'Toine
  */
 public class Resultat extends javax.swing.JFrame {
 
+    public ws.WSResultat port;
     /**
      * Creates new form Resultat
      */
     public Resultat() {
         initComponents();
+        ws.WSResultat_Service service = new ws.WSResultat_Service();
+        port =  service.getWSResultatPort();
+        System.out.println("Appel du webService  : " +port.hello("Toto"));
     }
 
     /**
@@ -34,6 +42,7 @@ public class Resultat extends javax.swing.JFrame {
         idAnalyseTF = new javax.swing.JTextField();
         typeLabel = new javax.swing.JLabel();
         valLabel = new javax.swing.JLabel();
+        quitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,30 +59,38 @@ public class Resultat extends javax.swing.JFrame {
             }
         });
 
-        idAnalyseTF.setText("jTextField1");
+        idAnalyseTF.setText("veuillez entre l'id de l'analyse");
 
-        typeLabel.setText("jLabel4");
-
-        valLabel.setText("jLabel5");
+        quitButton.setText("Quitter");
+        quitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quitButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(typeAnalyseLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(identifiantLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(valeurLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(getResultatButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(idAnalyseTF, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(typeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(valLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(318, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(typeAnalyseLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(identifiantLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(valeurLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(idAnalyseTF, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(typeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(valLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(getResultatButton)
+                        .addGap(107, 107, 107)
+                        .addComponent(quitButton)))
+                .addContainerGap(292, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +107,11 @@ public class Resultat extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valeurLabel)
                     .addComponent(valLabel))
-                .addGap(38, 38, 38)
-                .addComponent(getResultatButton)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(getResultatButton)
+                    .addComponent(quitButton))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,7 +120,20 @@ public class Resultat extends javax.swing.JFrame {
 
     private void getResultatButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getResultatButtonMouseClicked
         // TODO add your handling code here:
+        try{
+            int idAnalyse = Integer.parseInt(idAnalyseTF.getText());
+            Analyse a = port.getAnalyse(idAnalyse);
+            typeLabel.setText(a.getItem());
+            valLabel.setText(a.getValeur());
+        }catch(Exception ex){
+            Logger.getLogger(Resultat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_getResultatButtonMouseClicked
+
+    private void quitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitButtonMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_quitButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -142,6 +174,7 @@ public class Resultat extends javax.swing.JFrame {
     private javax.swing.JButton getResultatButton;
     private javax.swing.JTextField idAnalyseTF;
     private javax.swing.JLabel identifiantLabel;
+    private javax.swing.JButton quitButton;
     private javax.swing.JLabel typeAnalyseLabel;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel valLabel;

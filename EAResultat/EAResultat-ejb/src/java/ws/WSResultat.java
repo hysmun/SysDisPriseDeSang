@@ -34,7 +34,17 @@ public class WSResultat {
     @WebMethod(operationName = "getAnalyse")
     public Analyse getAnalyse(@WebParam(name = "idAnalyse") int idAnalyse) {
         //TODO write your implementation code here:
-        Analyse a = db.getById(Analyse.class, idAnalyse);
-        return null;
+        Analyse a;
+        try{
+            a = db.getById(PriseDeSangLibrary.Analyse.class, idAnalyse);
+        }catch(Exception ex ){
+            a = new Analyse();
+            a.setItem(ex.getClass() + " " +ex.getMessage());
+        }
+        if(a == null){
+            a = new Analyse();
+            a.setValeur("ERREUR a = null");
+        }
+        return a;
     }
 }
