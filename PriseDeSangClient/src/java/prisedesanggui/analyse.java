@@ -10,9 +10,15 @@ import EjbPriseDeSang.EjbAnalysesRemote;
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
+import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.StringTokenizer;
 import javax.ejb.EJB;
+import javax.jms.Connection;
+import javax.jms.Queue;
+import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.swing.DefaultComboBoxModel;
 
@@ -29,7 +35,19 @@ public class analyse extends javax.swing.JFrame {
     @EJB
     private static EjbAnalysesRemote ejbAnalyse;
     
+    private int refMed;
+    
+    private Session ses;
+    
+    private Connection con;
+    
+    private Queue que;
+    
     public analyse() {
+        initComponents();
+    }
+    
+    public analyse(int refMedecin) {
         initComponents();
         try {
             InitialContext ctx = new InitialContext();
@@ -39,11 +57,12 @@ public class analyse extends javax.swing.JFrame {
         {
             System.out.println("Exception caught : " + ex);
         } 
+        refMed = refMedecin;
         ArrayList<Patient> ar = new ArrayList(ejbPatient.getPatientList());
         DefaultComboBoxModel bobox = new DefaultComboBoxModel();
         for(int i = 0;i<ar.size();i++)
         {
-            bobox.addElement(ar.get(i).getPrenom() + " " + ar.get(i).getNom());
+            bobox.addElement(ar.get(i).getIdPatient() + ":" + ar.get(i).getNom() + " " + ar.get(i).getPrenom());
         }
         patientBox.setModel(bobox);
     }
@@ -178,12 +197,17 @@ public class analyse extends javax.swing.JFrame {
         catch(Exception ex){
             System.out.println("Exception caught : " + ex);
         } 
-        int idAnalyse;
-        Demande demande = new Demande();
         // Generation du numero de réference ( = id demande )
-        
+        int idAnalyse = ejbAnalyse.nextIdDemande();
+        Demande demande = new Demande(idAnalyse,new Date(),(short)0);
+        Medecin med = ejbPatient.getMedecin(refMed);
+        demande.setRefMedecin(med);
+        int refPat = Tokenize(patientBox.getSelectedItem().toString());
+        Patient pat = ejbPatient.getPatient(refPat);
+        demande.setRefPatient(pat);
+        ejbAnalyse.addDemande(demande);
         // Poster message sur la queue
-        ejbAnalyse.sendMessage(text, ses, con, que);
+        ejbAnalyse.sendMessage("blabla", ses, con, que);
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
@@ -223,6 +247,14 @@ public class analyse extends javax.swing.JFrame {
                 new analyse().setVisible(true);
             }
         });
+    }
+    
+    public int Tokenize(String st)
+    {
+        String val;
+        StringTokenizer str = new StringTokenizer(st,":");
+        val = str.nextToken();
+        return Integer.parseInt(val);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
