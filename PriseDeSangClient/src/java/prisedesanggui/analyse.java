@@ -253,7 +253,7 @@ public class analyse extends javax.swing.JFrame {
             type = "rdw";
         ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
         // Poster message sur la queue
-        //ejbAnalyse.sendMessage("blabla", ses, con, que);
+        ejbAnalyse.sendMessage("Allo maman bobo", ses, con, que);
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed

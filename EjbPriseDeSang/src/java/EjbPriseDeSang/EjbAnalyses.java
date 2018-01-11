@@ -48,6 +48,7 @@ public class EjbAnalyses implements EjbAnalysesRemote {
             TextMessage txt = ses.createTextMessage();
             txt.setText(text);
             prodTop.send(txt);
+            System.out.println("Message envoye : " + txt.getText());
         }
         catch(JMSException ex)
         {
