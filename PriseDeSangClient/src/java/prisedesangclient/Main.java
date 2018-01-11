@@ -27,13 +27,14 @@ public class Main {
     public static void main(String[] args) {
         
         ar = new AllVariables();
+        /*try {
+            InitialContext ctx = new InitialContext();
+            ejbLogin = (EjbLoginRemoteRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbLoginRemote!EjbPriseDeSang.EjbLoginRemoteRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         for(int i=0; i< nbrFen; i++){
-            try {
-                InitialContext ctx = new InitialContext();
-                ejbLogin = (EjbLoginRemoteRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbLoginRemote!EjbPriseDeSang.EjbLoginRemoteRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             int ret = ejbLogin.connect();
             switch(ret){
                 case 1:

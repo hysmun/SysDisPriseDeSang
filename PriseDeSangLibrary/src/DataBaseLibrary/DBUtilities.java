@@ -55,7 +55,7 @@ public class DBUtilities {
     public <T> T getByLogin(String nom){
         T ret=null;
         try {
-            ret = (T) em.createQuery("SELECT x FROM Medecin as x WHERE x.Login LIKE "+nom).getResultList().get(0);
+            ret = (T) em.createQuery("SELECT x FROM Medecin as x WHERE x.login LIKE '"+nom+"'").getResultList().get(0);
         } catch(Exception e){
             throw e;
         }

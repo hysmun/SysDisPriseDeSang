@@ -46,8 +46,8 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
                     return 1;
                 }
             } catch(Exception ex){
-                Logger.getLogger(EjbLoginRemote.class.getName()).log(Level.SEVERE, null, ex);
-                return -101;
+                throw ex;
+                //return -101;
             }
         }
         if(ctx.isCallerInRole("laborantin")){
