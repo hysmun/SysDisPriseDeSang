@@ -38,9 +38,6 @@ public class EjbPatient implements EjbPatientRemote {
         lp = uti.getList(Medecin.class);
         return lp;
         
-        
-        
-        
     }
     
     @Override
@@ -53,7 +50,7 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Medecin getMedecin(int pid) {
         Medecin p;
-        p = uti.em.find(Medecin.class, pid);
+        p = uti.getById(Medecin.class, pid);
         return p;
     }
 

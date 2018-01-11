@@ -44,7 +44,7 @@ public class DBUtilities {
             int j=1;
             ResultSet rs;
             String name = c.getSimpleName();
-            ret = (T)em.createQuery("SELECT x FROM "+name+" as x WHERE x.id"+name+" = "+id).getResultList().get(0);
+            ret = (T) em.createQuery("SELECT x FROM "+name+" as x WHERE x.id"+name+" = "+id).getResultList().get(0);
         } catch(Exception e){
             throw e;
         }
