@@ -92,6 +92,8 @@ public class EjbPatient implements EjbPatientRemote {
             Patient p;
             //p=uti.em.find(Patient.class, ppatient);
             uti.em.merge(ppatient);
+            uti.commit();
+            uti.em.getTransaction().begin();
         }catch(Exception e){
             throw e;
         }
