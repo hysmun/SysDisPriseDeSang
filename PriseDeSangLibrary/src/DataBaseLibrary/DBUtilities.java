@@ -5,6 +5,7 @@
  */
 package DataBaseLibrary;
 
+import PriseDeSangLibrary.Logs;
 import java.sql.*;
 import static java.sql.ResultSet.*;
 import java.lang.reflect.Field;
@@ -86,5 +87,17 @@ public class DBUtilities {
             throw e;
         }
         return nbr+1;
+    }
+    
+    public boolean logMsg(String msg){
+        try{
+            Logs l = new Logs(getNextId(Logs.class), msg);
+            em.persist(l);
+            commit();
+            em.getTransaction().begin();
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
     }
 }
