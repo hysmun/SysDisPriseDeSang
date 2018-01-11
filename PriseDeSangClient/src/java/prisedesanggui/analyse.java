@@ -5,17 +5,40 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbPatientRemote;
+import PriseDeSangLibrary.Patient;
+import java.util.ArrayList;
+import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Morghen
  */
 public class analyse extends javax.swing.JFrame {
 
-    /**
-     * Creates new form analyse
-     */
+    
+    @EJB
+    private static EjbPatientRemote ejbPatient;
+    
     public analyse() {
         initComponents();
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Exception caught : " + ex);
+        } 
+        ArrayList<Patient> ar = new ArrayList(ejbPatient.getPatientList());
+        DefaultComboBoxModel bobox = new DefaultComboBoxModel();
+        for(int i = 0;i<ar.size();i++)
+        {
+            bobox.addElement(ar.get(i).getPrenom() + " " + ar.get(i).getNom());
+        }
+        patientBox.setModel(bobox);
     }
 
     /**

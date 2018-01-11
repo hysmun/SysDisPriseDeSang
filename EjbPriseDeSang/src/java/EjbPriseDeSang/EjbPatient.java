@@ -46,8 +46,8 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Patient getPatient(int pid) {
         Patient p;
-        //p = uti.getById(Patient.class, pid);
-        p=uti.em.find(Patient.class, pid);
+        p = uti.getById(Patient.class, pid);
+        //p=uti.em.find(Patient.class, pid);
         return p;
     }
     @Override
@@ -89,8 +89,8 @@ public class EjbPatient implements EjbPatientRemote {
     public Boolean modifPatient(Patient ppatient) {
         try{
             Patient p;
-            p=uti.em.find(Patient.class, ppatient.getIdPatient());
-            uti.em.merge(p);
+            //p=uti.em.find(Patient.class, ppatient);
+            uti.em.merge(ppatient);
         }catch(Exception e){
             throw e;
         }

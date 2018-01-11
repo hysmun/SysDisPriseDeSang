@@ -29,7 +29,7 @@ public class consulterAnalyse extends javax.swing.JFrame {
         initComponents();
         try {
             InitialContext ctx = new InitialContext();
-            ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbAnalyseRemote");
+            ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
         } catch (NamingException ex) {
             Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
         }
