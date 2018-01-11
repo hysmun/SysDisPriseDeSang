@@ -174,18 +174,26 @@ public class addModifyPatient extends javax.swing.JDialog {
         if(type == AJOUT) // Ajout
         {
             p = new Patient(nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ejbPatient.addPatient(p);
         }
         else // Modification
         {
             p = new Patient(type,nameTextField.getText(), surnameTextField.getText(), loginTextField.getText());
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ejbPatient.modifPatient(p);
         }
-        try {
-            InitialContext ctx = new InitialContext();
-            ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
-        } catch (NamingException ex) {
-            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ejbPatient.addPatient(p);
+        
         this.dispose();
     }//GEN-LAST:event_OKButtonMouseClicked
 
