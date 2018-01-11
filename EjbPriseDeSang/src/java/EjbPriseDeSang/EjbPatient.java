@@ -89,7 +89,7 @@ public class EjbPatient implements EjbPatientRemote {
     public Boolean modifPatient(Patient ppatient) {
         try{
             Patient p;
-            p=uti.em.find(Patient.class, ppatient);
+            p=uti.em.find(Patient.class, ppatient.getIdPatient());
             uti.em.merge(p);
         }catch(Exception e){
             throw e;
