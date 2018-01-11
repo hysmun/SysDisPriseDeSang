@@ -10,10 +10,6 @@ import Utilities.AllVariables;
 import javax.ejb.EJB;
 import prisedesanggui.ApplicationLaborantin;
 import prisedesanggui.ApplicationMedecin;
-import static test.testClient.ejbLogin;
-
-
-
 
 public class Main {
     
@@ -22,15 +18,25 @@ public class Main {
     
     public static AllVariables ar;
     
+    public static int nbrFen = 2;
+    
     public static void main(String[] args) {
         
         ar = new AllVariables();
-        ejbLogin.connect();
-        ApplicationMedecin appMed = new ApplicationMedecin(ar);
-        appMed.setVisible(true);
-
-        ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
-        appLab.setVisible(true);
+        for(int i=0; i< nbrFen; i++){
+            switch(ejbLogin.connect()){
+                case 1:
+                    ApplicationMedecin appMed = new ApplicationMedecin(ar);
+                    appMed.setVisible(true);
+                    break;
+                case 2:
+                    ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
+                    appLab.setVisible(true);
+                    break;
+                default:
+                    System.out.println("ERREUR LOGIN");
+            }
+        }
     }
      
 }
