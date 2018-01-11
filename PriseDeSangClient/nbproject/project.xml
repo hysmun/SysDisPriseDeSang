@@ -13,7 +13,15 @@
             </test-roots>
             <included-library dirs="200">reference.PriseDeSangLibrary.jar</included-library>
             <included-library dirs="100">reference.EjbPriseDeSang.dist</included-library>
+<<<<<<< HEAD
             <included-library dirs="200">libs.MySql_JDBC_Driver.classpath</included-library>
+=======
+<<<<<<< HEAD
+            <included-library dirs="200">file.reference.mysql-connector-java-5.1.23-bin.jar-1</included-library>
+=======
+            <included-library dirs="200">libs.MySql_JDBC_Driver_5.1.23.classpath</included-library>
+>>>>>>> origin/master
+>>>>>>> origin/master
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
