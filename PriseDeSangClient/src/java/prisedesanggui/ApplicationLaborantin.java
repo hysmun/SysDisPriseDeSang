@@ -79,7 +79,6 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         DefaultListModel listModel = new DefaultListModel();
         listModel.addElement(txt.toString());
         demandeListe.setModel(listModel);
-
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,31 +125,34 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(demandeLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
+                                .addGap(152, 152, 152)
                                 .addComponent(refreshButton)
-                                .addGap(26, 26, 26)
-                                .addComponent(traiterButton)))
-                        .addGap(0, 151, Short.MAX_VALUE)))
+                                .addGap(64, 64, 64)
+                                .addComponent(traiterButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(demandeLabel)))
+                        .addGap(0, 117, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(refreshButton)
                     .addComponent(traiterButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addComponent(demandeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
