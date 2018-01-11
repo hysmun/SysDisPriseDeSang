@@ -121,12 +121,12 @@ public class analyse extends javax.swing.JFrame {
         leuco.setText("Leucocytes");
 
         typeBG.add(hematie);
-        hematie.setText("Hématies");
+        hematie.setText("Hematies");
 
-        hemoglo.setText("Hémoglobine");
+        hemoglo.setText("Hemoglobine");
 
         typeBG.add(hemato);
-        hemato.setText("Hématocrite");
+        hemato.setText("Hematocrite");
 
         typeBG.add(vgm);
         vgm.setText("VGM");

@@ -150,12 +150,12 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="typeBG"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="H&#xe9;maties"/>
+        <Property name="text" type="java.lang.String" value="Hematies"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="hemoglo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="H&#xe9;moglobine"/>
+        <Property name="text" type="java.lang.String" value="Hemoglobine"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="hemato">
@@ -163,7 +163,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="typeBG"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="H&#xe9;matocrite"/>
+        <Property name="text" type="java.lang.String" value="Hematocrite"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="vgm">
