@@ -129,7 +129,7 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     @Override
     public Boolean addDemande(Demande ppatient) {
         try{
-            Medecin m = uti.getById(Medecin.class, ppatient.getRefMedecin().getIdmedecin());
+            Medecin m = uti.getById(Medecin.class, ppatient.getRefMedecin().getIdMedecin());
             Patient p = uti.getById(Patient.class, ppatient.getRefPatient().getIdPatient());
             
             ppatient.setRefMedecin(m);

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Logs.findAll", query = "SELECT l FROM Logs l")
-    , @NamedQuery(name = "Logs.findByIdlogs", query = "SELECT l FROM Logs l WHERE l.idlogs = :idlogs")
+    , @NamedQuery(name = "Logs.findByIdLogs", query = "SELECT l FROM Logs l WHERE l.idLogs = :idLogs")
     , @NamedQuery(name = "Logs.findByInfos", query = "SELECT l FROM Logs l WHERE l.infos = :infos")})
 public class Logs implements Serializable {
 
@@ -35,31 +35,29 @@ public class Logs implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "idLogs")
-    private Integer idlogs;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    private Integer idLogs;
+    @Size(max = 255)
     @Column(name = "Infos")
     private String infos;
 
     public Logs() {
     }
 
-    public Logs(Integer idlogs) {
-        this.idlogs = idlogs;
+    public Logs(Integer idLogs) {
+        this.idLogs = idLogs;
+    }
+    
+    public Logs(Integer idLogs, String msg) {
+        this.idLogs = idLogs;
+        infos = msg;
     }
 
-    public Logs(Integer idlogs, String infos) {
-        this.idlogs = idlogs;
-        this.infos = infos;
+    public Integer getIdLogs() {
+        return idLogs;
     }
 
-    public Integer getIdlogs() {
-        return idlogs;
-    }
-
-    public void setIdlogs(Integer idlogs) {
-        this.idlogs = idlogs;
+    public void setIdLogs(Integer idLogs) {
+        this.idLogs = idLogs;
     }
 
     public String getInfos() {
@@ -73,7 +71,7 @@ public class Logs implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idlogs != null ? idlogs.hashCode() : 0);
+        hash += (idLogs != null ? idLogs.hashCode() : 0);
         return hash;
     }
 
@@ -84,7 +82,7 @@ public class Logs implements Serializable {
             return false;
         }
         Logs other = (Logs) object;
-        if ((this.idlogs == null && other.idlogs != null) || (this.idlogs != null && !this.idlogs.equals(other.idlogs))) {
+        if ((this.idLogs == null && other.idLogs != null) || (this.idLogs != null && !this.idLogs.equals(other.idLogs))) {
             return false;
         }
         return true;
@@ -92,7 +90,7 @@ public class Logs implements Serializable {
 
     @Override
     public String toString() {
-        return "PriseDeSangLibrary.Logs[ idlogs=" + idlogs + " ]";
+        return "PriseDeSangLibrary.Logs[ idLogs=" + idLogs + " ]";
     }
     
 }

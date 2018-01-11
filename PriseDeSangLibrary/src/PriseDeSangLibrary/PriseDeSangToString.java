@@ -19,11 +19,11 @@ public class PriseDeSangToString {
                 break;
             case "Demande":
                 Demande d = (Demande)o;
-                str = "id = "+d.getIddemande()+" "+d.getDateHeureDemande()+" "+d.getUrgent()+" Medecin: "+d.getRefMedecin()+" Patient:"+d.getRefPatient();
+                str = "id = "+d.getIdDemande()+" "+d.getDateHeureDemande()+" "+d.getUrgent()+" Medecin: "+d.getRefMedecin()+" Patient:"+d.getRefPatient();
                 break;
             case "Medecin":
                 Medecin m = (Medecin)o;
-                str = "id = "+m.getIdmedecin()+" "+m.getNom()+" "+m.getPrenom();
+                str = "id = "+m.getIdMedecin()+" "+m.getNom()+" "+m.getPrenom();
                 break;
             case "Patient":
                 Patient p = (Patient)o;

@@ -76,7 +76,7 @@ public class EjbPatient implements EjbPatientRemote {
     public Boolean addMedecin(Medecin ppatient) {
         try{
             int id = uti.getNextId(Medecin.class);
-            ppatient.setIdmedecin(id);
+            ppatient.setIdMedecin(id);
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
