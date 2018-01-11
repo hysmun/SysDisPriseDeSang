@@ -45,3 +45,10 @@ hs_err_pid*
 /EnterpriseApplication1/nbproject/private/
 /EnterpriseApplication1/EnterpriseApplication1-war/nbproject/private/
 /EnterpriseApplication1/EnterpriseApplication1-ejb/nbproject/private/
+/EAWebService/nbproject/private/
+/EAWebService/EAWebService-war/nbproject/private/
+/EAWebService/EAWebService-ejb/nbproject/private/
+/EAWebService/EAWebService-ejb/dist/
+/EAWebService/EAWebService-ejb/build/
+/EAWebService/build/
+/WSResultatClient/nbproject/private/
