@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import prisedesanggui.ApplicationLaborantin;
 import prisedesanggui.ApplicationMedecin;
 
@@ -33,21 +35,34 @@ public class Main {
         } catch (NamingException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-        for(int i=0; i< nbrFen; i++){
-            
-            int ret = ejbLogin.connect();
-            switch(ret){
-                case 1:
-                    ApplicationMedecin appMed = new ApplicationMedecin(ar);
-                    appMed.setVisible(true);
-                    break;
-                case 2:
-                    ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
-                    appLab.setVisible(true);
-                    break;
-                default:
-                    System.out.println("ERREUR LOGIN"+ ret);
+        String input;
+        int in;
+        input = JOptionPane.showInputDialog("Veuillez entrez le type d'app :\n1 avec authentification\n2 pour avoir les 2 fenetres");
+        in = Integer.parseInt(input);
+        if(in == 1){
+            for(int i=0; i< nbrFen; i++){
+
+                int ret = ejbLogin.connect();
+                switch(ret){
+                    case 1:
+                        ApplicationMedecin appMed = new ApplicationMedecin(ar);
+                        appMed.setVisible(true);
+                        break;
+                    case 2:
+                        ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
+                        appLab.setVisible(true);
+                        break;
+                    default:
+                        System.out.println("ERREUR LOGIN"+ ret);
+                }
             }
+        }
+        if(in == 2){
+            ApplicationMedecin appMed = new ApplicationMedecin(ar);
+            appMed.setVisible(true);
+
+            ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
+            appLab.setVisible(true);
         }
     }
      
