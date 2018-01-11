@@ -6,6 +6,7 @@
 package prisedesangclient;
 
 import Utilities.AllVariables;
+import prisedesanggui.ApplicationLaborantin;
 import prisedesanggui.ApplicationMedecin;
 
 
@@ -22,7 +23,8 @@ public class Main {
         ApplicationMedecin appMed = new ApplicationMedecin(ar);
         appMed.setVisible(true);
 
-
+        ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
+        appLab.setVisible(true);
     }
      
 }
