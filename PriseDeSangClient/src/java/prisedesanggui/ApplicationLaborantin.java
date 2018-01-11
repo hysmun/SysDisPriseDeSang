@@ -79,7 +79,6 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         DefaultListModel listModel = new DefaultListModel();
         listModel.addElement(txt.toString());
         demandeListe.setModel(listModel);
-
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -251,7 +251,7 @@ public class analyse extends javax.swing.JFrame {
             type = "ccmh";
         if(rdw.isSelected())
             type = "rdw";
-        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"-1"));
+        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"-1.0"));
         // Poster message sur la queue
         //ejbAnalyse.sendMessage("blabla", ses, con, que);
     }//GEN-LAST:event_OKButtonActionPerformed
