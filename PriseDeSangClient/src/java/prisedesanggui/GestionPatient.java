@@ -45,6 +45,10 @@ public class GestionPatient extends javax.swing.JFrame {
         } 
         lp = ejbPatient.getPatientList();
         patientJList.setModel(new MyListModel(lp));
+        
+        
+        
+        
     }
 
     /**

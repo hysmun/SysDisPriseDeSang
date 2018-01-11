@@ -37,6 +37,10 @@ public class EjbPatient implements EjbPatientRemote {
         List lp;
         lp = uti.getList(Medecin.class);
         return lp;
+        
+        
+        
+        
     }
     
     @Override
