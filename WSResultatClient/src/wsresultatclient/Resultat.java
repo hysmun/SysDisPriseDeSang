@@ -16,9 +16,7 @@ import ws.Analyse;
 public class Resultat extends javax.swing.JFrame {
 
     public ws.WSResultat port;
-    /**
-     * Creates new form Resultat
-     */
+    
     public Resultat() {
         initComponents();
         ws.WSResultat_Service service = new ws.WSResultat_Service();
