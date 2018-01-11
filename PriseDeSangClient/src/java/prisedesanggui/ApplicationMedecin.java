@@ -42,7 +42,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
         analysePrescribeButton = new javax.swing.JButton();
         resultsButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Application SystDist - Medecin");
 
         patientManagementButton.setText("Gerer les patients");

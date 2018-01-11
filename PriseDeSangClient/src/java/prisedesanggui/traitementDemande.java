@@ -144,6 +144,7 @@ public class traitementDemande extends javax.swing.JDialog {
                 Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
             }
             ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
+            System.out.println("id = "+id);
             // Envoie de message sur le TOPIC si demande urgente
             
             // Envoie des infos au MDB log
