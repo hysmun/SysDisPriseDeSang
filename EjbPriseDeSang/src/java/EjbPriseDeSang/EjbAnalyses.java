@@ -9,6 +9,8 @@ import DataBaseLibrary.DBUtilities;
 import static EjbPriseDeSang.EjbPatient.uti;
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
+import PriseDeSangLibrary.Medecin;
+import PriseDeSangLibrary.Patient;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -127,11 +129,27 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     @Override
     public Boolean addDemande(Demande ppatient) {
         try{
-            int id = uti.getNextId(Analyse.class);
-            ppatient.setIddemande(id);
+            Medecin m = uti.getById(Medecin.class, ppatient.getRefMedecin().getIdmedecin());
+            Patient p = uti.getById(Patient.class, ppatient.getRefPatient().getIdPatient());
+            
+            ppatient.setRefMedecin(m);
+            ppatient.setRefPatient(p);
+            
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
+        }catch(Exception e){
+            throw e;
+        }
+        return true;
+    }
+    
+    @Override
+    public Boolean modifAnalyse(Analyse ppatient) {
+        try{
+            Analyse p;
+            //p=uti.em.find(Patient.class, ppatient);
+            uti.em.merge(ppatient);
         }catch(Exception e){
             throw e;
         }

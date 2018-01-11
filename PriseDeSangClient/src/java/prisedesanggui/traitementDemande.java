@@ -5,6 +5,14 @@
  */
 package prisedesanggui;
 
+import EjbPriseDeSang.EjbAnalysesRemote;
+import PriseDeSangLibrary.Analyse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +21,31 @@ import javax.swing.JOptionPane;
  */
 public class traitementDemande extends javax.swing.JDialog {
 
+    @EJB
+    public EjbAnalysesRemote ejbAnalysesRemote;
+    
+    public int id;
+    
     /**
      * Creates new form traitementDemande
      */
     public traitementDemande(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    public traitementDemande(java.awt.Frame parent, boolean modal, int pid) {
+        super(parent, modal);
+        id = pid;
+        initComponents();
+        try {
+            InitialContext ctx = new InitialContext();
+            ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Analyse a = ejbAnalysesRemote.getAnalyse(pid);
+        typeLabel.setText(a.getItem());
     }
 
     /**
@@ -34,6 +61,8 @@ public class traitementDemande extends javax.swing.JDialog {
         CancelButton = new javax.swing.JButton();
         resultatTextField = new javax.swing.JTextField();
         resultatLabel = new javax.swing.JLabel();
+        typeAnalyseLabel = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,15 +80,20 @@ public class traitementDemande extends javax.swing.JDialog {
             }
         });
 
-        resultatLabel.setText("RÃ©sultat :");
+        resultatLabel.setText("Résultat :");
+
+        typeAnalyseLabel.setText("type d'analyse :");
+
+        typeLabel.setText("type");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(typeAnalyseLabel)
                     .addComponent(resultatLabel)
                     .addComponent(OKButton))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,17 +102,23 @@ public class traitementDemande extends javax.swing.JDialog {
                         .addComponent(CancelButton))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resultatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(resultatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(typeAnalyseLabel)
+                    .addComponent(typeLabel))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(resultatLabel)
                     .addComponent(resultatTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OKButton)
                     .addComponent(CancelButton))
@@ -96,7 +136,13 @@ public class traitementDemande extends javax.swing.JDialog {
         else
         {
             // Encoder dans la BD le resultat de l'analyse
-            
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
             // Envoie de message sur le TOPIC si demande urgente
             
             // Envoie des infos au MDB log
@@ -154,5 +200,7 @@ public class traitementDemande extends javax.swing.JDialog {
     private javax.swing.JButton OKButton;
     private javax.swing.JLabel resultatLabel;
     private javax.swing.JTextField resultatTextField;
+    private javax.swing.JLabel typeAnalyseLabel;
+    private javax.swing.JLabel typeLabel;
     // End of variables declaration//GEN-END:variables
 }

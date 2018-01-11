@@ -24,8 +24,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="92" max="32767" attributes="0"/>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="typeAnalyseLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="resultatLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="OKButton" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -36,7 +37,10 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="resultatTextField" min="-2" pref="147" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="resultatTextField" min="-2" pref="147" max="-2" attributes="0"/>
+                          <Component id="typeLabel" min="-2" pref="118" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -46,12 +50,17 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="typeAnalyseLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="typeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="resultatLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="resultatTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="73" max="32767" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="OKButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="CancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -83,6 +92,16 @@
     <Component class="javax.swing.JLabel" name="resultatLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="R&#xe9;sultat :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="typeAnalyseLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="type d&apos;analyse :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="typeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="type"/>
       </Properties>
     </Component>
   </SubComponents>
