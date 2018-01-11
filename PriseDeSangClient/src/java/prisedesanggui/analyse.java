@@ -210,7 +210,7 @@ public class analyse extends javax.swing.JFrame {
         }
         catch(Exception ex){
             System.out.println("Exception caught : " + ex);
-        } 
+        }
         // Generation du numero de réference ( = id demande )
         int idAnalyse = ejbAnalyse.nextIdDemande();
         Demande demande = new Demande(idAnalyse,new Date(),(short)0);
