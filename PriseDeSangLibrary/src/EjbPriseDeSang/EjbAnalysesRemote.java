@@ -7,6 +7,7 @@ package EjbPriseDeSang;
 
 import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
+import Utilities.AllVariables;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.jms.Connection;
@@ -21,11 +22,7 @@ import javax.jms.Topic;
  */
 @Remote
 public interface EjbAnalysesRemote {
-       
-    void sendMessage(String text,Session ses, Connection con, Topic top);
-    
-    void sendMessage(String text,Session ses, Connection con, Queue que);
-    
+     
     List getDemandeList();
 
     List getAnalyseList();
@@ -47,4 +44,6 @@ public interface EjbAnalysesRemote {
     List getDemandeNotDone();
     
     int nextIdDemande();
+    
+    Boolean addAnalyse(Analyse ppatient, AllVariables av);
 }

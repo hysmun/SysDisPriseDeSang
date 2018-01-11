@@ -11,13 +11,20 @@ import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
+import Utilities.AllVariables;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
@@ -25,55 +32,18 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.jboss.weld.logging.Category;
 
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
     
-    private static MessageProducer prodQue = null;
-    private static MessageProducer prodTop = null;
+    private static Connection con =null;
+    private static Session ses =null;
     
-    
+    private static MessageProducer prod = null;
+
     public static DBUtilities uti = new DBUtilities();
     
-    
-    @Override
-    public void sendMessage(String text,Session ses, Connection con, Topic top)
-    {
-        try
-        {
-            if(prodTop == null)
-            {
-                prodTop = ses.createProducer(top);
-            }
-            TextMessage txt = ses.createTextMessage();
-            txt.setText(text);
-            prodTop.send(txt);
-            System.out.println("Message envoye : " + txt.getText());
-        }
-        catch(JMSException ex)
-        {
-            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @Override
-    public void sendMessage(String text,Session ses, Connection con, Queue que)
-    {
-        try
-        {
-            if(prodQue == null)
-            {
-                prodQue = ses.createProducer(que);
-            }
-            TextMessage txt = ses.createTextMessage();
-            txt.setText(text);
-            prodQue.send(txt);
-        }
-        catch(JMSException ex)
-        {
-            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     @Override
     public List getDemandeList() {
@@ -147,8 +117,28 @@ public class EjbAnalyses implements EjbAnalysesRemote {
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
+            
         }catch(Exception e){
             throw e;
+        }
+        return true;
+    }
+    
+    @Override
+    public Boolean addAnalyse(Analyse ppatient, AllVariables av) {
+        try{
+            int id = uti.getNextId(Analyse.class);
+            ppatient.setIdAnalyse(id);
+            uti.em.persist(ppatient);
+            uti.commit();
+            uti.em.getTransaction().begin();
+            if(prod == null)
+                prod = av.sesQue.createProducer(av.queue);
+            TextMessage tm = av.sesQue.createTextMessage();
+            tm.setText(""+ppatient.getIdAnalyse());
+            prod.send(tm);
+        }catch(Exception e){
+            Logger.getLogger(EjbAnalyses.class.getName()).log(Level.SEVERE, null, e);
         }
         return true;
     }
@@ -195,4 +185,5 @@ public class EjbAnalyses implements EjbAnalysesRemote {
         }
         return true;
     }
+    
 }

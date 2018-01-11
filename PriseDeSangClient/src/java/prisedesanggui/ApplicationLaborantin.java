@@ -44,15 +44,9 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
     @EJB
     private static EjbAnalysesRemote ejbAnalyse;
     
-    private Topic top = null;
-    
     private Queue queue = null;
     
-    private Connection conTop = null;
-    
     private Connection conQueue = null;
-    
-    private Session sesTop = null;
     
     private Session sesQue = null;
         
@@ -68,9 +62,6 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
     public ApplicationLaborantin(AllVariables av) {
         try {        
             initComponents();
-            this.conTop = av.conTop;
-            this.top = av.topic;
-            this.sesTop = av.sesTop;
             this.conQueue = av.conQue;
             this.sesQue = av.sesQue;
             this.queue = av.queue;
@@ -86,9 +77,20 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
     @Override
     public void onMessage(Message message)
     {
-        TextMessage txt = (TextMessage)message;
-        listModel.addElement(txt.toString());
-        demandeListe.setModel(listModel);
+        try {
+            TextMessage txt = (TextMessage)message;
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Demande e = ejbAnalyse.getDemande(Integer.parseInt(txt.getText()));
+            listModel.addElement(PriseDeSangToString.demandeToString(e));
+            demandeListe.setModel(listModel);
+        } catch (JMSException ex) {
+            Logger.getLogger(ApplicationLaborantin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.

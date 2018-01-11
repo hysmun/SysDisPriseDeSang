@@ -39,21 +39,15 @@ public class analyse extends javax.swing.JFrame {
     
     private int refMed;
     
-    private Session ses;
-    
-    private Connection con;
-    
-    private Queue que;
+    private AllVariables av;
     
     public analyse() {
         initComponents();
     }
     
-    public analyse(int refMedecin,AllVariables av) {
+    public analyse(int refMedecin,AllVariables tav) {
         initComponents();
-        this.ses = av.sesQue;
-        this.con = av.conQue;
-        this.que = av.queue;
+        av = tav;
         
         try {
             InitialContext ctx = new InitialContext();
@@ -251,9 +245,7 @@ public class analyse extends javax.swing.JFrame {
             type = "ccmh";
         if(rdw.isSelected())
             type = "rdw";
-        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
-        // Poster message sur la queue
-        ejbAnalyse.sendMessage("Allo maman bobo", ses, con, que);
+        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"), av);
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
