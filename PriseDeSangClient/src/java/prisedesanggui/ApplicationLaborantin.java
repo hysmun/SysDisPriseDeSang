@@ -73,6 +73,8 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
     {
         try {
             TextMessage txt = (TextMessage)message;
+            if(! txt.getBooleanProperty("urgent") )
+                return;
             try {
                 InitialContext ctx = new InitialContext();
                 ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");

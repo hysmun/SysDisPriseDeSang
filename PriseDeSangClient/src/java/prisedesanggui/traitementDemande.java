@@ -7,10 +7,16 @@ package prisedesanggui;
 
 import EjbPriseDeSang.EjbAnalysesRemote;
 import PriseDeSangLibrary.Analyse;
+import PriseDeSangLibrary.Demande;
 import Utilities.AllVariables;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.jms.Connection;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.print.attribute.standard.DateTimeAtCompleted;
@@ -27,6 +33,10 @@ public class traitementDemande extends javax.swing.JDialog {
     
     public int id;
     public AllVariables av;
+    private Connection conT =null;
+    private Session sesT =null;
+    
+    private MessageProducer prodT = null;
     
     /**
      * Creates new form traitementDemande
@@ -139,19 +149,30 @@ public class traitementDemande extends javax.swing.JDialog {
         }
         else
         {
-            // Encoder dans la BD le resultat de l'analyse
             try {
-                InitialContext ctx = new InitialContext();
-                ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
-            } catch (NamingException ex) {
-                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+                // Encoder dans la BD le resultat de l'analyse
+                try {
+                    InitialContext ctx = new InitialContext();
+                    ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+                } catch (NamingException ex) {
+                    Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()), av);
+                ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
+                Demande d = ejbAnalysesRemote.getDemande(id);
+                if(prodT == null)
+                    prodT = av.sesTop.createProducer(av.topic);
+                
+                TextMessage tm = av.sesTop.createTextMessage();
+                tm.setBooleanProperty("urgent",d.getUrgent()== 0 ? false: true);
+                tm.setText(""+id);
+                prodT.send(tm);
+                // Envoie de message sur le TOPIC si demande urgente
+                
+                // Envoie des infos au MDB log
+            } catch (JMSException ex) {
+                Logger.getLogger(traitementDemande.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()), av);
-            //ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
-            System.out.println("id = "+id);
-            // Envoie de message sur le TOPIC si demande urgente
-            
-            // Envoie des infos au MDB log
         }
         this.dispose();
     }//GEN-LAST:event_OKButtonActionPerformed

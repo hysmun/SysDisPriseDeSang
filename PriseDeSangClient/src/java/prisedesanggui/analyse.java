@@ -5,7 +5,6 @@
  */
 package prisedesanggui;
 
-import EjbPriseDeSang.EjbAnalyses;
 import EjbPriseDeSang.EjbAnalysesRemote;
 import EjbPriseDeSang.EjbPatientRemote;
 import PriseDeSangLibrary.Analyse;
@@ -13,14 +12,17 @@ import PriseDeSangLibrary.Demande;
 import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
 import Utilities.AllVariables;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.jms.Connection;
-import javax.jms.Queue;
+import javax.jms.JMSException;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.swing.DefaultComboBoxModel;
 
@@ -40,6 +42,10 @@ public class analyse extends javax.swing.JFrame {
     private int refMed;
     
     private AllVariables av;
+    private Connection conQ =null;
+    private Session sesQ =null;
+    
+    private MessageProducer prodQ = null;
     
     public analyse() {
         initComponents();
@@ -208,45 +214,55 @@ public class analyse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
-        // Encodage des données sur le patient dans la BDD
-        try {
-            InitialContext ctx = new InitialContext();
-            ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+        try {                                         
+            // Encodage des données sur le patient dans la BDD
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+            }
+            catch(Exception ex){
+                System.out.println("Exception caught : " + ex);
+            }
+            // Generation du numero de réference ( = id demande )
+            int idAnalyse = ejbAnalyse.nextIdDemande();
+            short urgent=0;
+            if(ugentCB.isSelected())
+                urgent = 1;
+            Demande demande = new Demande(idAnalyse,new Date(),urgent);
+            Medecin med = ejbPatient.getMedecin(refMed);
+            demande.setRefMedecin(med);
+            int refPat = Tokenize(patientBox.getSelectedItem().toString());
+            Patient pat = ejbPatient.getPatient(refPat);
+            demande.setRefPatient(pat);
+            ejbAnalyse.addDemande(demande);
+            String type="default";
+            if(hemato.isSelected())
+                type = "hemato";
+            if(hemoglo.isSelected())
+                type = "hemoglo";
+            if(hematie.isSelected())
+                type = "hematie";
+            if(leuco.isSelected())
+                type = "leuco";
+            if(tcmm.isSelected())
+                type = "tcmm";
+            if(vgm.isSelected())
+                type = "vgm";
+            if(ccmh.isSelected())
+                type = "ccmh";
+            if(rdw.isSelected())
+                type = "rdw";
+            //ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"), av);
+            ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
+            if(prodQ == null)
+                prodQ = av.sesQue.createProducer(av.queue);
+            TextMessage tm = av.sesQue.createTextMessage();
+            tm.setText(""+idAnalyse);
+            prodQ.send(tm);
         }
-        catch(Exception ex){
-            System.out.println("Exception caught : " + ex);
+        catch(JMSException ex){
+            Logger.getLogger(analyse.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // Generation du numero de réference ( = id demande )
-        int idAnalyse = ejbAnalyse.nextIdDemande();
-        short urgent=0;
-        if(ugentCB.isSelected())
-            urgent = 1;
-        Demande demande = new Demande(idAnalyse,new Date(),urgent);
-        Medecin med = ejbPatient.getMedecin(refMed);
-        demande.setRefMedecin(med);
-        int refPat = Tokenize(patientBox.getSelectedItem().toString());
-        Patient pat = ejbPatient.getPatient(refPat);
-        demande.setRefPatient(pat);
-        ejbAnalyse.addDemande(demande);
-        String type="default";
-        if(hemato.isSelected())
-            type = "hemato";
-        if(hemoglo.isSelected())
-            type = "hemoglo";
-        if(hematie.isSelected())
-            type = "hematie";
-        if(leuco.isSelected())
-            type = "leuco";
-        if(tcmm.isSelected())
-            type = "tcmm";
-        if(vgm.isSelected())
-            type = "vgm";
-        if(ccmh.isSelected())
-            type = "ccmh";
-        if(rdw.isSelected())
-            type = "rdw";
-        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"), av);
-        //ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
