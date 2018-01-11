@@ -10,10 +10,12 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
+import javax.jms.JMSContext;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.Topic;
+import javax.naming.InitialContext;
 
 /**
  *
@@ -37,9 +39,19 @@ public class AllVariables {
 
     @Resource(mappedName = "jms/TopicPDSFactory")
     public ConnectionFactory topicPDSFactory;
+       
     
     public AllVariables() {
-        
+        try {
+            InitialContext ctx = new InitialContext();
+            topicPDSFactory = (ConnectionFactory) ctx.lookup("jms/TopicPDSFactory");
+            queuePDSFactory = (ConnectionFactory) ctx.lookup("jms/QueuePDSFactory");
+            topic = (Topic) ctx.lookup("jms/TopicPDS");
+            queue = (Queue) ctx.lookup("jms/QueuePDS");
+        }
+        catch(Exception ex) {
+            System.out.println("Exception caught : " +ex);
+        }
         try {
             conTop = topicPDSFactory.createConnection();
             sesTop = conTop.createSession(false, Session.AUTO_ACKNOWLEDGE);

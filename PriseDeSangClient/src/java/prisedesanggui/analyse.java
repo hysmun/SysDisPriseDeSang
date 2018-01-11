@@ -15,6 +15,7 @@ import PriseDeSangLibrary.Patient;
 import Utilities.AllVariables;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.StringTokenizer;
 import javax.ejb.EJB;
 import javax.jms.Connection;
@@ -63,7 +64,7 @@ public class analyse extends javax.swing.JFrame {
             System.out.println("Exception caught : " + ex);
         } 
         refMed = refMedecin;
-        ArrayList<Patient> ar = new ArrayList(ejbPatient.getPatientList());
+        List<Patient> ar = ejbPatient.getPatientList();
         DefaultComboBoxModel bobox = new DefaultComboBoxModel();
         for(int i = 0;i<ar.size();i++)
         {

@@ -6,6 +6,7 @@
 package prisedesangclient;
 
 import EjbPriseDeSang.EjbLoginRemoteRemote;
+import Utilities.AllVariables;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -19,11 +20,24 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import prisedesanggui.ApplicationMedecin;
+import static test.testClient.ejbLogin;
 
-/**
- *
- * @author Morghen
- */
+
+
+
 public class Main {
+    
+    public static AllVariables ar;
+    
+    public static void main(String[] args) {
+        
+        ar = new AllVariables();
+        
+        ApplicationMedecin appMed = new ApplicationMedecin(ar);
+        appMed.setVisible(true);
+
+
+    }
      
 }
