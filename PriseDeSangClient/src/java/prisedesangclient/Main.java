@@ -7,7 +7,11 @@ package prisedesangclient;
 
 import EjbPriseDeSang.EjbLoginRemoteRemote;
 import Utilities.AllVariables;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import prisedesanggui.ApplicationLaborantin;
 import prisedesanggui.ApplicationMedecin;
 
@@ -24,7 +28,14 @@ public class Main {
         
         ar = new AllVariables();
         for(int i=0; i< nbrFen; i++){
-            switch(ejbLogin.connect()){
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbLogin = (EjbLoginRemoteRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbLoginRemoteRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int ret = ejbLogin.connect();
+            switch(ret){
                 case 1:
                     ApplicationMedecin appMed = new ApplicationMedecin(ar);
                     appMed.setVisible(true);
@@ -34,7 +45,7 @@ public class Main {
                     appLab.setVisible(true);
                     break;
                 default:
-                    System.out.println("ERREUR LOGIN");
+                    System.out.println("ERREUR LOGIN"+ ret);
             }
         }
     }

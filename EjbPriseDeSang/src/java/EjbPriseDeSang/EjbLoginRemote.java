@@ -40,20 +40,20 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
             try{
                 Medecin m = db.getByLogin( med.getName());
                 if(m == null){
-                    return -1;
+                    return -404;
                 }
                 else{
                     return 1;
                 }
             } catch(Exception ex){
                 Logger.getLogger(EjbLoginRemote.class.getName()).log(Level.SEVERE, null, ex);
-                return -1;
+                return -101;
             }
         }
         if(ctx.isCallerInRole("laborantin")){
             System.out.println("laborantin");
             return 2;
         }
-        return -1;
+        return -500;
     }
 }
