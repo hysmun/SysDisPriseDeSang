@@ -790,36 +790,23 @@ exists or setup the property manually. For example like this:
     <target depends="compile" if="is.server.weblogic" name="library-inclusion-in-archive">
         <basename file="${reference.PriseDeSangLibrary.jar}" property="manifest.reference.PriseDeSangLibrary.jar"/>
         <basename file="${reference.EjbPriseDeSang.dist}" property="manifest.reference.EjbPriseDeSang.dist"/>
-<<<<<<< HEAD
-        <basename file="${libs.MySql_JDBC_Driver.classpath}" property="manifest.libs.MySql_JDBC_Driver.classpath"/>
-=======
         <basename file="${file.reference.mysql-connector-java-5.1.23-bin.jar-1}" property="manifest.file.reference.mysql-connector-java-5.1.23-bin.jar-1"/>
->>>>>>> origin/master
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 jar-2 jar-3 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.PriseDeSangLibrary.jar}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.reference.EjbPriseDeSang.dist}"/>
-<<<<<<< HEAD
-            <attribute name="jar-3-Extension-Name" value="${manifest.libs.MySql_JDBC_Driver.classpath}"/>
-=======
             <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.mysql-connector-java-5.1.23-bin.jar-1}"/>
->>>>>>> origin/master
+
         </manifest>
     </target>
     <target depends="compile" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.PriseDeSangLibrary.jar}" manifestproperty="manifest.reference.PriseDeSangLibrary.jar" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.EjbPriseDeSang.dist}" manifestproperty="manifest.reference.EjbPriseDeSang.dist" todir="${dist.ear.dir}"/>
-<<<<<<< HEAD
-        <copyfiles files="${libs.MySql_JDBC_Driver.classpath}" manifestproperty="manifest.libs.MySql_JDBC_Driver.classpath" todir="${dist.ear.dir}/lib"/>
-=======
         <copyfiles files="${file.reference.mysql-connector-java-5.1.23-bin.jar-1}" manifestproperty="manifest.file.reference.mysql-connector-java-5.1.23-bin.jar-1" todir="${dist.ear.dir}/lib"/>
->>>>>>> origin/master
+
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-<<<<<<< HEAD
-            <attribute name="Class-Path" value="${manifest.reference.PriseDeSangLibrary.jar} lib/${manifest.reference.PriseDeSangLibrary.jar} ${manifest.reference.EjbPriseDeSang.dist} ${manifest.libs.MySql_JDBC_Driver.classpath} lib/${manifest.libs.MySql_JDBC_Driver.classpath} "/>
-=======
             <attribute name="Class-Path" value="${manifest.reference.PriseDeSangLibrary.jar} lib/${manifest.reference.PriseDeSangLibrary.jar} ${manifest.reference.EjbPriseDeSang.dist} ${manifest.file.reference.mysql-connector-java-5.1.23-bin.jar-1} lib/${manifest.file.reference.mysql-connector-java-5.1.23-bin.jar-1} "/>
->>>>>>> origin/master
+
         </manifest>
     </target>
     <target name="-copy-meta-inf">
