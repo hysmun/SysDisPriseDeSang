@@ -91,7 +91,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="resultatLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="R&#xe9;sultat :"/>
+        <Property name="text" type="java.lang.String" value="Resultat :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="typeAnalyseLabel">

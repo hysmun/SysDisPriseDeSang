@@ -80,7 +80,7 @@ public class traitementDemande extends javax.swing.JDialog {
             }
         });
 
-        resultatLabel.setText("Résultat :");
+        resultatLabel.setText("Resultat :");
 
         typeAnalyseLabel.setText("type d'analyse :");
 
