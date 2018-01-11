@@ -46,7 +46,8 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Patient getPatient(int pid) {
         Patient p;
-        p = uti.em.find(Patient.class, pid);
+        //p = uti.getById(Patient.class, pid);
+        p=uti.em.find(Patient.class, pid);
         return p;
     }
     @Override

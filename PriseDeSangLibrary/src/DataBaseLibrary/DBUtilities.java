@@ -38,12 +38,23 @@ public class DBUtilities {
         return true;
     }
     
+    public <T> T getById(Class c, int id){
+        T ret=null;
+        try {
+            int j=1;
+            ResultSet rs;
+            String name = c.getSimpleName();
+            ret = (T)em.createQuery("SELECT x FROM "+name+" as x WHERE x.id"+name+" = "+id).getResultList().get(0);
+        } catch(Exception e){
+            throw e;
+        }
+        return ret;
+    }
+    
     public <T> List<T> getList(Class c){
         List<T> list =null;
         try {
-            int number = getNbr(c);
             int j=1;
-            ResultSet rs;
             String name = c.getSimpleName();
             list = em.createQuery("SELECT x FROM "+name+" as x").getResultList();
         } catch(Exception e){
