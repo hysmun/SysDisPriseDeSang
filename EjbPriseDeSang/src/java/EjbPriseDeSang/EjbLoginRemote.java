@@ -38,7 +38,7 @@ public class EjbLoginRemote implements EjbLoginRemoteRemote {
             Principal med = ctx.getCallerPrincipal();
             //Connexion BDD et test si existant
             try{
-                Medecin m = db.getByNom(Medecin.class, med.getName());
+                Medecin m = db.getByLogin( med.getName());
                 if(m == null){
                     return -1;
                 }
