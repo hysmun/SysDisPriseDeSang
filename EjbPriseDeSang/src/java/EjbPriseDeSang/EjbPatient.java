@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Singleton;
 import javax.ejb.Stateless;
+import org.apache.taglibs.standard.extra.spath.Predicate;
 
 /**
  *
@@ -46,7 +47,12 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Patient getPatient(int pid) {
         Patient p;
-        p = uti.em.find(Patient.class, pid);
+        Predicate cond = new Predicate(){
+            boolean evaluate(Object sample) {
+                return (sample).idPatient.equals(pid);
+        }};
+        p = uti.getList(Patient.class).stream().filter((<any> item) -> item.idPatient.equals(pid));
+        
         return p;
     }
     @Override

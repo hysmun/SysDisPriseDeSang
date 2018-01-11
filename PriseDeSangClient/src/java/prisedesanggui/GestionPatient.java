@@ -146,7 +146,7 @@ public class GestionPatient extends javax.swing.JFrame {
         if(patientJList.getSelectedIndex() > -1)
         {
             Patient p = lp.get(patientJList.getSelectedIndex());
-            addModifyPatient adp = new addModifyPatient(this, true, 0);
+            addModifyPatient adp = new addModifyPatient(this, true, p.getIdPatient());
             adp.setVisible(true);
         }
     }//GEN-LAST:event_modifPatientButtonMouseClicked
