@@ -33,7 +33,7 @@ public class consulterAnalyse extends javax.swing.JFrame {
         } catch (NamingException ex) {
             Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
         }
-        List<Analyse> la = ejbAnalysesRemote.getAnalyseList();
+        List<Analyse> la = ejbAnalysesRemote.getAnalyseDone();
         nonprioListe.setModel(new MyListModel(la));
     }
 
@@ -133,7 +133,7 @@ public class consulterAnalyse extends javax.swing.JFrame {
         } catch (NamingException ex) {
             Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
         }
-        List<Analyse> la = ejbAnalysesRemote.getAnalyseList();
+        List<Analyse> la = ejbAnalysesRemote.getAnalyseDone();
         nonprioListe.setModel(new MyListModel(la));
     }//GEN-LAST:event_refreshButtonMouseClicked
 

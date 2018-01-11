@@ -11,6 +11,7 @@ import PriseDeSangLibrary.Analyse;
 import PriseDeSangLibrary.Demande;
 import PriseDeSangLibrary.Medecin;
 import PriseDeSangLibrary.Patient;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,6 +86,18 @@ public class EjbAnalyses implements EjbAnalysesRemote {
         List lp;
         lp = uti.getList(Analyse.class);
         return lp;
+    }
+    
+    @Override
+    public List getAnalyseDone() {
+        List lp;
+        lp = uti.getList(Analyse.class);
+        LinkedList<Analyse> lpdone = new LinkedList<>();
+        for(Analyse a : (List<Analyse>)lp){
+            if(Double.parseDouble(a.getValeur()) >=0.0);
+                lpdone.add(a);
+        }
+        return lpdone;
     }
     
     @Override

@@ -40,5 +40,7 @@ public interface EjbAnalysesRemote {
     
     Boolean modifAnalyse(Analyse ppatient);
     
+    List getAnalyseDone();
+    
     int nextIdDemande();
 }
