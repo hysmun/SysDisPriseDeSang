@@ -27,12 +27,12 @@ public class addModifyPatient extends javax.swing.JDialog {
     private static EjbPatientRemote ejbPatient;
     
     public addModifyPatient() {
-        /*try {
+        try {
             InitialContext ctx = new InitialContext();
             ejbPatient = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
         } catch (NamingException ex) {
             Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
 
     /**
