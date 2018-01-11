@@ -20,6 +20,7 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -37,6 +38,8 @@ public class consulterAnalyse extends javax.swing.JFrame implements MessageListe
     private MessageConsumer cons = null;
     
     public AllVariables av;
+    
+    public LinkedList<Analyse> analyseUrgentList;
     
     public consulterAnalyse() {}
     public consulterAnalyse( AllVariables tav) {
@@ -56,7 +59,7 @@ public class consulterAnalyse extends javax.swing.JFrame implements MessageListe
         } catch (JMSException ex) {
             Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        analyseUrgentList = new LinkedList<>();
     }
 
     /**
@@ -202,6 +205,24 @@ public class consulterAnalyse extends javax.swing.JFrame implements MessageListe
 
     @Override
     public void onMessage(Message message) {
+        try {
+            int idAnalyse;
+            TextMessage txt = (TextMessage) message;
+            if(!txt.getBooleanProperty("urgent"))
+                return;
+            idAnalyse = Integer.parseInt(txt.getText());
+            try {
+                InitialContext ctx = new InitialContext();
+                ejbAnalysesRemote = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+            } catch (NamingException ex) {
+                Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Analyse a = ejbAnalysesRemote.getAnalyse(idAnalyse);
+            analyseUrgentList.add(a);
+            urgentListe.setModel(new MyListModel(analyseUrgentList));
+        } catch (JMSException ex) {
+            Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
