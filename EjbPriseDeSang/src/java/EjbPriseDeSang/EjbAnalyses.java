@@ -32,16 +32,6 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     
     public static DBUtilities uti = new DBUtilities();
     
-    public static EjbAnalysesRemote generateInstance(){
-        EjbAnalysesRemote instance=null;
-        try {
-            InitialContext ctx = new InitialContext();
-            instance = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbAnalyseRemote");
-        } catch (NamingException ex) {
-            Logger.getLogger(NamingException.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return instance;
-    }
     
     @Override
     public void sendMessage(String text,Session ses, Connection con, Topic top)
@@ -121,6 +111,17 @@ public class EjbAnalyses implements EjbAnalysesRemote {
             throw e;
         }
         return true;
+    }
+    
+    @Override
+    public int nextIdDemande(){
+        int nbr;
+        try{
+            nbr = uti.getNextId(Demande.class);
+        }catch(Exception e){
+            throw e;
+        }
+        return nbr;
     }
     
     @Override

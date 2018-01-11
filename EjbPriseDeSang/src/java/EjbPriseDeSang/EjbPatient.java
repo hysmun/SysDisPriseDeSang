@@ -29,17 +29,6 @@ public class EjbPatient implements EjbPatientRemote {
 
     public static DBUtilities uti = new DBUtilities();
     
-    public static EjbPatientRemote generateInstance(){
-        EjbPatientRemote instance=null;
-        try {
-            InitialContext ctx = new InitialContext();
-            instance = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
-        } catch (NamingException ex) {
-            Logger.getLogger(NamingException.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return instance;
-    }
-    
     @Override
     public List getPatientList() {
         List lp;
