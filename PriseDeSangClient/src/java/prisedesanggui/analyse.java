@@ -172,11 +172,10 @@ public class analyse extends javax.swing.JFrame {
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
         // Encodage des données sur le patient dans la BDD
         try {
-        InitialContext ctx = new InitialContext();
-        ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
+            InitialContext ctx = new InitialContext();
+            ejbAnalyse = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbAnalyses!EjbPriseDeSang.EjbAnalysesRemote");
         }
-        catch(Exception ex)
-        {
+        catch(Exception ex){
             System.out.println("Exception caught : " + ex);
         } 
         int idAnalyse;
