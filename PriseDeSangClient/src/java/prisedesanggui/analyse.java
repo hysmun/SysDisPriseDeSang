@@ -245,8 +245,8 @@ public class analyse extends javax.swing.JFrame {
             type = "ccmh";
         if(rdw.isSelected())
             type = "rdw";
-        //ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"), av);
-        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
+        ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"), av);
+        //ejbAnalyse.addAnalyse(new Analyse(idAnalyse,type,"NULL"));
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed

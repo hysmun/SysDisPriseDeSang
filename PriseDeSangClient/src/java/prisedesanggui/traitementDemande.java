@@ -146,8 +146,8 @@ public class traitementDemande extends javax.swing.JDialog {
             } catch (NamingException ex) {
                 Logger.getLogger(consulterAnalyse.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()), av);
-            ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
+            ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()), av);
+            //ejbAnalysesRemote.modifAnalyse(new Analyse(id, typeLabel.getText(), resultatTextField.getText()));
             System.out.println("id = "+id);
             // Envoie de message sur le TOPIC si demande urgente
             

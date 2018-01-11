@@ -58,11 +58,11 @@ public class Main {
             }
         }
         if(in == 2){
-            ApplicationMedecin appMed = new ApplicationMedecin(ar);
-            appMed.setVisible(true);
-
             ApplicationLaborantin appLab = new ApplicationLaborantin(ar);
             appLab.setVisible(true);
+            
+            ApplicationMedecin appMed = new ApplicationMedecin(ar);
+            appMed.setVisible(true);
         }
     }
      

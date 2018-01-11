@@ -57,3 +57,5 @@ hs_err_pid*
 /EAWebService/dist/
 /EAWebService/EAWebService-war/build/
 /EAWebService/EAWebService-war/dist/
+/EAResultat/nbproject/private/
+/EAResultat/EAResultat-ejb/nbproject/private/
