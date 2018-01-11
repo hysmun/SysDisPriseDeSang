@@ -105,7 +105,7 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         refreshButton = new javax.swing.JButton();
         traiterButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         demandeListe.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -182,6 +182,7 @@ public class ApplicationLaborantin extends javax.swing.JFrame implements Message
         for(Demande a: la){
             listModel.addElement(PriseDeSangToString.demandeToString(a));
         }
+        demandeListe.setModel(listModel);
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void traiterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_traiterButtonActionPerformed
