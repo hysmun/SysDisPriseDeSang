@@ -57,7 +57,7 @@ public class DBUtilities {
         String name = c.getSimpleName();
         ResultSet rs;
         try {
-            Long tmp = ((Long)em.createQuery("SELECT COUNT(*) FROM "+name+" as x").getResultList().get(0));
+            Long tmp = ((Long)em.createQuery("SELECT COUNT(x) FROM "+name+" as x").getResultList().get(0));
             nbr = tmp.intValue();
         } catch (Exception e) {
             throw e;
@@ -70,8 +70,7 @@ public class DBUtilities {
         String name = c.getSimpleName();
         ResultSet rs;
         try {
-            Long tmp = ((Long)em.createQuery("SELECT MAX(x.id"+name+") FROM "+name+" as x").getResultList().get(0));
-            nbr = tmp.intValue();
+            nbr = ((Integer)em.createQuery("SELECT MAX(x.id"+name+") FROM "+name+" as x").getResultList().get(0));
         } catch (Exception e) {
             throw e;
         }
