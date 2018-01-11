@@ -13,8 +13,12 @@ import PriseDeSangLibrary.Patient;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Singleton;
 import javax.ejb.Stateless;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -24,6 +28,17 @@ import javax.ejb.Stateless;
 public class EjbPatient implements EjbPatientRemote {
 
     public static DBUtilities uti = new DBUtilities();
+    
+    public static EjbPatientRemote generateInstance(){
+        EjbPatientRemote instance=null;
+        try {
+            InitialContext ctx = new InitialContext();
+            instance = (EjbPatientRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbPatientRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(NamingException.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return instance;
+    }
     
     @Override
     public List getPatientList() {
@@ -38,9 +53,6 @@ public class EjbPatient implements EjbPatientRemote {
         lp = uti.getList(Medecin.class);
         return lp;
         
-        
-        
-        
     }
     
     @Override
@@ -53,7 +65,7 @@ public class EjbPatient implements EjbPatientRemote {
     @Override
     public Medecin getMedecin(int pid) {
         Medecin p;
-        p = uti.em.find(Medecin.class, pid);
+        p = uti.getById(Medecin.class, pid);
         return p;
     }
 

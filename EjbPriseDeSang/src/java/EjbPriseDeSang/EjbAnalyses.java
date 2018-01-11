@@ -20,6 +20,8 @@ import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @Stateless
 public class EjbAnalyses implements EjbAnalysesRemote {
@@ -29,7 +31,18 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     
     
     public static DBUtilities uti = new DBUtilities();
-       
+    
+    public static EjbAnalysesRemote generateInstance(){
+        EjbAnalysesRemote instance=null;
+        try {
+            InitialContext ctx = new InitialContext();
+            instance = (EjbAnalysesRemote) ctx.lookup("java:global/EAPriseDeSang/EjbPriseDeSang/EjbPatient!EjbPriseDeSang.EjbAnalyseRemote");
+        } catch (NamingException ex) {
+            Logger.getLogger(NamingException.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return instance;
+    }
+    
     @Override
     public void sendMessage(String text,Session ses, Connection con, Topic top)
     {
@@ -85,20 +98,22 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     @Override
     public Demande getDemande(int pid) {
         Demande p;
-        p = uti.em.find(Demande.class, pid);
+        p = uti.getById(Demande.class, pid);
         return p;
     }
     
     @Override
     public Analyse getAnalyse(int pid) {
         Analyse p;
-        p = uti.em.find(Analyse.class, pid);
+        p = uti.getById(Analyse.class, pid);
         return p;
     }
     
     @Override
     public Boolean addAnalyse(Analyse ppatient) {
         try{
+            int id = uti.getNextId(Analyse.class);
+            ppatient.setIdAnalyse(id);
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
@@ -111,6 +126,8 @@ public class EjbAnalyses implements EjbAnalysesRemote {
     @Override
     public Boolean addDemande(Demande ppatient) {
         try{
+            int id = uti.getNextId(Analyse.class);
+            ppatient.setIddemande(id);
             uti.em.persist(ppatient);
             uti.commit();
             uti.em.getTransaction().begin();
