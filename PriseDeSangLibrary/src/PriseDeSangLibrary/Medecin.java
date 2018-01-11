@@ -8,11 +8,8 @@ package PriseDeSangLibrary;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medecin.findAll", query = "SELECT m FROM Medecin m")
-    , @NamedQuery(name = "Medecin.findByIdmedecin", query = "SELECT m FROM Medecin m WHERE m.idmedecin = :idMedecin")
+    , @NamedQuery(name = "Medecin.findByIdMedecin", query = "SELECT m FROM Medecin m WHERE m.idMedecin = :idMedecin")
+    , @NamedQuery(name = "Medecin.findByLogin", query = "SELECT m FROM Medecin m WHERE m.login = :login")
     , @NamedQuery(name = "Medecin.findByNom", query = "SELECT m FROM Medecin m WHERE m.nom = :nom")
-    , @NamedQuery(name = "Medecin.findByPrenom", query = "SELECT m FROM Medecin m WHERE m.prenom = :prenom")
-    , @NamedQuery(name = "Medecin.findByLogin", query = "SELECT m FROM Medecin m WHERE m.login = :login")})
+    , @NamedQuery(name = "Medecin.findByPrenom", query = "SELECT m FROM Medecin m WHERE m.prenom = :prenom")})
 public class Medecin implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,51 +40,53 @@ public class Medecin implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "idMedecin")
-    private Integer idmedecin;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Nom")
-    private String nom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Prenom")
-    private String prenom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    private Integer idMedecin;
+    @Size(max = 255)
     @Column(name = "Login")
     private String login;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refMedecin")
+    @Size(max = 255)
+    @Column(name = "Nom")
+    private String nom;
+    @Size(max = 255)
+    @Column(name = "Prenom")
+    private String prenom;
+    @OneToMany(mappedBy = "refMedecin")
     private Collection<Demande> demandeCollection;
 
     public Medecin() {
     }
 
-    public Medecin(Integer idmedecin) {
-        this.idmedecin = idmedecin;
+    public Medecin(Integer idMedecin) {
+        this.idMedecin = idMedecin;
     }
-    
-    public Medecin( String nom, String prenom, String login) {
+
+    public Medecin(Integer idMedecin, String login, String nom, String prenom) {
+        this.idMedecin = idMedecin;
+        this.login = login;
         this.nom = nom;
         this.prenom = prenom;
-        this.login = login;
     }
 
-    public Medecin(Integer idmedecin, String nom, String prenom, String login) {
-        this.idmedecin = idmedecin;
+    public Medecin(String login, String nom, String prenom) {
+        this.login = login;
         this.nom = nom;
         this.prenom = prenom;
+    }
+
+    public Integer getIdMedecin() {
+        return idMedecin;
+    }
+
+    public void setIdMedecin(Integer idMedecin) {
+        this.idMedecin = idMedecin;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
         this.login = login;
-    }
-
-    public Integer getIdmedecin() {
-        return idmedecin;
-    }
-
-    public void setIdmedecin(Integer idmedecin) {
-        this.idmedecin = idmedecin;
     }
 
     public String getNom() {
@@ -106,14 +105,6 @@ public class Medecin implements Serializable {
         this.prenom = prenom;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     @XmlTransient
     public Collection<Demande> getDemandeCollection() {
         return demandeCollection;
@@ -126,7 +117,7 @@ public class Medecin implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idmedecin != null ? idmedecin.hashCode() : 0);
+        hash += (idMedecin != null ? idMedecin.hashCode() : 0);
         return hash;
     }
 
@@ -137,7 +128,7 @@ public class Medecin implements Serializable {
             return false;
         }
         Medecin other = (Medecin) object;
-        if ((this.idmedecin == null && other.idmedecin != null) || (this.idmedecin != null && !this.idmedecin.equals(other.idmedecin))) {
+        if ((this.idMedecin == null && other.idMedecin != null) || (this.idMedecin != null && !this.idMedecin.equals(other.idMedecin))) {
             return false;
         }
         return true;
@@ -145,7 +136,7 @@ public class Medecin implements Serializable {
 
     @Override
     public String toString() {
-        return "PriseDeSangLibrary.Medecin[ idmedecin=" + idmedecin + " ]";
+        return "PriseDeSangLibrary.Medecin[ idMedecin=" + idMedecin + " ]";
     }
     
 }

@@ -8,11 +8,8 @@ package PriseDeSangLibrary;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,9 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Patient.findAll", query = "SELECT p FROM Patient p")
     , @NamedQuery(name = "Patient.findByIdPatient", query = "SELECT p FROM Patient p WHERE p.idPatient = :idPatient")
+    , @NamedQuery(name = "Patient.findByLogin", query = "SELECT p FROM Patient p WHERE p.login = :login")
     , @NamedQuery(name = "Patient.findByNom", query = "SELECT p FROM Patient p WHERE p.nom = :nom")
-    , @NamedQuery(name = "Patient.findByPrenom", query = "SELECT p FROM Patient p WHERE p.prenom = :prenom")
-    , @NamedQuery(name = "Patient.findByLogin", query = "SELECT p FROM Patient p WHERE p.login = :login")})
+    , @NamedQuery(name = "Patient.findByPrenom", query = "SELECT p FROM Patient p WHERE p.prenom = :prenom")})
 public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,22 +41,16 @@ public class Patient implements Serializable {
     @NotNull
     @Column(name = "idPatient")
     private Integer idPatient;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Nom")
-    private String nom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Prenom")
-    private String prenom;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 255)
     @Column(name = "Login")
     private String login;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "refPatient")
+    @Size(max = 255)
+    @Column(name = "Nom")
+    private String nom;
+    @Size(max = 255)
+    @Column(name = "Prenom")
+    private String prenom;
+    @OneToMany(mappedBy = "refPatient")
     private Collection<Demande> demandeCollection;
 
     public Patient() {
@@ -68,19 +59,21 @@ public class Patient implements Serializable {
     public Patient(Integer idPatient) {
         this.idPatient = idPatient;
     }
-    
-    public Patient(String nom, String prenom, String login) {
+
+    public Patient(Integer idPatient, String login, String nom, String prenom) {
+        this.idPatient = idPatient;
+        this.login = login;
         this.nom = nom;
         this.prenom = prenom;
-        this.login = login;
     }
 
-    public Patient(Integer idPatient, String nom, String prenom, String login) {
-        this.idPatient = idPatient;
+    public Patient(String login, String nom, String prenom) {
+        this.login = login;
         this.nom = nom;
         this.prenom = prenom;
-        this.login = login;
     }
+    
+    
 
     public Integer getIdPatient() {
         return idPatient;
@@ -88,6 +81,14 @@ public class Patient implements Serializable {
 
     public void setIdPatient(Integer idPatient) {
         this.idPatient = idPatient;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getNom() {
@@ -104,14 +105,6 @@ public class Patient implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     @XmlTransient

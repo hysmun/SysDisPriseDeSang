@@ -37,14 +37,10 @@ public class Analyse implements Serializable {
     @NotNull
     @Column(name = "idAnalyse")
     private Integer idAnalyse;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 255)
     @Column(name = "Item")
     private String item;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 255)
     @Column(name = "Valeur")
     private String valeur;
 
@@ -54,11 +50,11 @@ public class Analyse implements Serializable {
     public Analyse(Integer idAnalyse) {
         this.idAnalyse = idAnalyse;
     }
-
-    public Analyse(Integer idAnalyse, String item, String valeur) {
+    
+    public Analyse(Integer idAnalyse, String item, String Valeur) {
         this.idAnalyse = idAnalyse;
         this.item = item;
-        this.valeur = valeur;
+        this.valeur = Valeur;
     }
 
     public Integer getIdAnalyse() {
