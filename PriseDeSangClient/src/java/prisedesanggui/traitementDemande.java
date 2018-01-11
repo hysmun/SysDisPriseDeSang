@@ -126,6 +126,7 @@ public class traitementDemande extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
@@ -147,6 +148,7 @@ public class traitementDemande extends javax.swing.JDialog {
             
             // Envoie des infos au MDB log
         }
+        this.dispose();
     }//GEN-LAST:event_OKButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed

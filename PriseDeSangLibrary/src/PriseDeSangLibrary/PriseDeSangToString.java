@@ -34,6 +34,6 @@ public class PriseDeSangToString {
     }
     
     public static String demandeToString(Demande e){
-        return ""+e.getIdDemande()+":"+e.getDateHeureDemande()+" "+e.getUrgent()+"";
+        return ""+e.getIdDemande()+":"+e.getDateHeureDemande()+" "+(e.getUrgent()==0 ? "pas urgent":"URGENT")+"";
     }
 }
