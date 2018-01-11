@@ -5,18 +5,28 @@
  */
 package prisedesanggui;
 
+import Utilities.AllVariables;
+
 /**
  *
  * @author 'Toine
  */
 public class ApplicationMedecin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ApplicationMedecin
-     */
+    
+    private AllVariables ar;
+    private int refMed;
+    
     public ApplicationMedecin() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    
+    public ApplicationMedecin(AllVariables ar) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.ar = ar;
+        this.refMed = 111;
     }
 
     /**
@@ -91,7 +101,7 @@ public class ApplicationMedecin extends javax.swing.JFrame {
     }//GEN-LAST:event_patientManagementButtonActionPerformed
 
     private void analysePrescribeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysePrescribeButtonActionPerformed
-        new analyse().setVisible(true);
+        new analyse(refMed,ar).setVisible(true);
     }//GEN-LAST:event_analysePrescribeButtonActionPerformed
 
     private void resultsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resultsButtonActionPerformed
