@@ -95,6 +95,7 @@ public class analyse extends javax.swing.JFrame {
         ccmh = new javax.swing.JCheckBox();
         tcmm = new javax.swing.JCheckBox();
         rdw = new javax.swing.JCheckBox();
+        ugentCB = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Prescrire une analyse");
@@ -140,33 +141,40 @@ public class analyse extends javax.swing.JFrame {
         typeBG.add(rdw);
         rdw.setText("RDW");
 
+        ugentCB.setText("Urgent ?");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(hemoglo)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(hemato)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(patientLabel)
-                                    .addGap(37, 37, 37))
-                                .addComponent(OKButton, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(hematie)
-                            .addComponent(leuco))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(patientBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CancelButton)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(vgm)
-                                .addComponent(ccmh)
-                                .addComponent(tcmm)
-                                .addComponent(rdw)))))
+                            .addComponent(hemoglo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(hemato)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(patientLabel)
+                                            .addGap(37, 37, 37))
+                                        .addComponent(OKButton, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(hematie)
+                                    .addComponent(leuco))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(patientBox, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CancelButton)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(vgm)
+                                        .addComponent(ccmh)
+                                        .addComponent(tcmm)
+                                        .addComponent(rdw))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(ugentCB)))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -192,7 +200,9 @@ public class analyse extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(hemato)
                     .addComponent(rdw))
-                .addGap(75, 75, 75)
+                .addGap(18, 18, 18)
+                .addComponent(ugentCB)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelButton)
                     .addComponent(OKButton))
@@ -200,6 +210,7 @@ public class analyse extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
@@ -213,7 +224,10 @@ public class analyse extends javax.swing.JFrame {
         }
         // Generation du numero de réference ( = id demande )
         int idAnalyse = ejbAnalyse.nextIdDemande();
-        Demande demande = new Demande(idAnalyse,new Date(),(short)0);
+        short urgent=0;
+        if(ugentCB.isSelected())
+            urgent = 1;
+        Demande demande = new Demande(idAnalyse,new Date(),urgent);
         Medecin med = ejbPatient.getMedecin(refMed);
         demande.setRefMedecin(med);
         int refPat = Tokenize(patientBox.getSelectedItem().toString());
@@ -302,6 +316,7 @@ public class analyse extends javax.swing.JFrame {
     private javax.swing.JCheckBox rdw;
     private javax.swing.JCheckBox tcmm;
     private javax.swing.ButtonGroup typeBG;
+    private javax.swing.JCheckBox ugentCB;
     private javax.swing.JCheckBox vgm;
     // End of variables declaration//GEN-END:variables
 }

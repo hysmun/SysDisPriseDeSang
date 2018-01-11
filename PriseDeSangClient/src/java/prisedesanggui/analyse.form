@@ -11,7 +11,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -28,34 +28,42 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="hemoglo" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="hemato" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="patientLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="hemoglo" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="hemato" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="patientLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="OKButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="hematie" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="leuco" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="OKButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="hematie" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="leuco" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="patientBox" min="-2" pref="190" max="-2" attributes="0"/>
-                          <Component id="CancelButton" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="vgm" min="-2" max="-2" attributes="0"/>
-                              <Component id="ccmh" min="-2" max="-2" attributes="0"/>
-                              <Component id="tcmm" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="rdw" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="patientBox" min="-2" pref="190" max="-2" attributes="0"/>
+                                  <Component id="CancelButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                      <Component id="vgm" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ccmh" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tcmm" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rdw" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="ugentCB" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="124" max="32767" attributes="0"/>
@@ -90,7 +98,9 @@
                   <Component id="hemato" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rdw" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="ugentCB" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="OKButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -196,6 +206,11 @@
           <ComponentRef name="typeBG"/>
         </Property>
         <Property name="text" type="java.lang.String" value="RDW"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="ugentCB">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Urgent ?"/>
       </Properties>
     </Component>
   </SubComponents>
