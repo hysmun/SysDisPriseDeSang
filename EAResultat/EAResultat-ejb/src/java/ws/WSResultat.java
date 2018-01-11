@@ -5,6 +5,7 @@
  */
 package ws;
 
+import DataBaseLibrary.DBUtilities;
 import PriseDeSangLibrary.Analyse;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -18,7 +19,7 @@ import javax.ejb.Stateless;
 @WebService(serviceName = "WSResultat")
 @Stateless()
 public class WSResultat {
-
+    public DBUtilities db = new DBUtilities();
     /**
      * This is a sample web service operation
      */
@@ -33,6 +34,7 @@ public class WSResultat {
     @WebMethod(operationName = "getAnalyse")
     public Analyse getAnalyse(@WebParam(name = "idAnalyse") int idAnalyse) {
         //TODO write your implementation code here:
+        Analyse a = db.getById(Analyse.class, idAnalyse);
         return null;
     }
 }
